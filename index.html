@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada's STOTT Reformer Studies</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sage: #5a7a68;
+  --sage-light: #8aad96;
+  --sage-pale: #e8f0eb;
+  --sage-deep: #3b5448;
+  --cream: #f7f4ef;
+  --warm-white: #fdfcfa;
+  --charcoal: #2a2825;
+  --stone: #7a7670;
+  --stone-light: #c4bfb8;
+  --stone-pale: #eeece8;
+  --accent: #c4845a;
+  --accent-pale: #f5e8df;
+  --gold: #b89a6a;
+  --gold-pale: #f2ead8;
+  --inter: #7a6a9a;
+  --inter-light: #a898c4;
+  --inter-pale: #ece8f5;
+  --inter-deep: #4a3a6a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; font-size: 15px; line-height: 1.7; }
+
+/* ── TOP HEADER ── */
+header {
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: 2rem 2rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+header::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; border:1px solid rgba(255,255,255,0.06); }
+header::after { content:''; position:absolute; bottom:-60px; left:32%; width:140px; height:140px; border-radius:50%; border:1px solid rgba(255,255,255,0.04); }
+.header-label { font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage-light); margin-bottom:0.4rem; font-weight:400; }
+header h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,5vw,2.8rem); font-weight:400; line-height:1.1; margin-bottom:0.5rem; }
+header h1 em { color:var(--sage-light); font-style:italic; }
+header p { color:rgba(247,244,239,0.5); font-size:13px; font-weight:300; }
+
+/* ── BOOK SWITCHER ── */
+.book-switch {
+  background: var(--charcoal);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  padding: 0 2rem;
+  gap: 0;
+}
+.book-btn {
+  font-family:'DM Sans',sans-serif;
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.85rem 1.5rem;
+  font-size: 13px; font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.book-btn .bk-num {
+  width:20px; height:20px; border-radius:50%;
+  font-size:10px; font-weight:500;
+  display:flex; align-items:center; justify-content:center;
+}
+.book-btn[data-book="essential"] { color: rgba(247,244,239,0.5); }
+.book-btn[data-book="essential"] .bk-num { background: rgba(90,122,104,0.3); color: var(--sage-light); }
+.book-btn[data-book="essential"].active { color: var(--sage-light); border-bottom-color: var(--sage); }
+.book-btn[data-book="essential"].active .bk-num { background: var(--sage); color: white; }
+.book-btn[data-book="intermediate"] { color: rgba(247,244,239,0.5); }
+.book-btn[data-book="intermediate"] .bk-num { background: rgba(122,106,154,0.3); color: var(--inter-light); }
+.book-btn[data-book="intermediate"].active { color: var(--inter-light); border-bottom-color: var(--inter); }
+.book-btn[data-book="intermediate"].active .bk-num { background: var(--inter); color: white; }
+
+/* ── SECTION NAV ── */
+nav {
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--stone-pale);
+  padding: 0 2rem;
+  display: flex; gap: 0;
+  position: sticky; top: 0; z-index: 100;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.9rem 1.1rem;
+  font-family:'DM Sans',sans-serif;
+  font-size: 13px; font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--stone); cursor: pointer;
+  white-space: nowrap; transition: all 0.2s;
+}
+.nav-btn:hover { color: var(--charcoal); }
+.nav-btn.active { font-weight: 500; }
+body.book-essential .nav-btn.active { color: var(--sage-deep); border-bottom-color: var(--sage); }
+body.book-intermediate .nav-btn.active { color: var(--inter-deep); border-bottom-color: var(--inter); }
+
+/* ── BOOK VIEWS ── */
+.book-view { display: none; }
+.book-view.active { display: block; }
+
+/* ── MAIN ── */
+main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── CARDS ── */
+.card { background: var(--warm-white); border: 1px solid var(--stone-pale); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.25rem; }
+.card-tag { display:inline-block; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; padding:4px 12px; border-radius:100px; margin-bottom:1rem; }
+.tag-sage { background:var(--sage-pale); color:var(--sage-deep); }
+.tag-gold { background:var(--gold-pale); color:#7a5c2e; }
+.tag-accent { background:var(--accent-pale); color:#8a4e2a; }
+.tag-stone { background:var(--stone-pale); color:var(--stone); }
+.tag-inter { background:var(--inter-pale); color:var(--inter-deep); }
+.tag-inter2 { background:#e8f0e8; color:#3a5a3a; }
+.card h2 { font-family:'DM Serif Display',serif; font-size:1.35rem; font-weight:400; margin-bottom:0.75rem; line-height:1.3; }
+.card p { color:var(--stone); font-size:14px; line-height:1.75; margin-bottom:0.75rem; }
+.card p:last-child { margin-bottom:0; }
+.card ul { list-style:none; padding:0; }
+.card ul li { font-size:14px; color:var(--stone); padding:0.3rem 0 0.3rem 1.25rem; position:relative; line-height:1.6; border-bottom:1px solid var(--stone-pale); }
+.card ul li:last-child { border-bottom:none; }
+.card ul li::before { content:'—'; position:absolute; left:0; color:var(--sage-light); font-size:12px; }
+h3 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; color:var(--charcoal); margin:1.25rem 0 0.5rem; font-style:italic; }
+
+/* ── PRINCIPLE GRIDS ── */
+.principle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1rem; }
+.principle-item { background:var(--cream); border-radius:12px; padding:1.25rem; }
+body.book-essential .principle-item { border-left:3px solid var(--sage); }
+body.book-intermediate .principle-item { border-left:3px solid var(--inter); }
+.principle-num { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500; margin-bottom:0.35rem; }
+body.book-essential .principle-num { color:var(--sage); }
+body.book-intermediate .principle-num { color:var(--inter); }
+.principle-item h4 { font-family:'DM Serif Display',serif; font-size:1.05rem; font-weight:400; margin-bottom:0.5rem; color:var(--charcoal); }
+.principle-item p { font-size:13px; color:var(--stone); line-height:1.65; }
+
+/* ── ESSENCE GRIDS ── */
+.essence-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:1rem; }
+.essence-item { background:var(--cream); border-radius:10px; padding:1rem; text-align:center; }
+.essence-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem; font-size:16px; }
+body.book-essential .essence-icon { background:var(--sage-pale); }
+body.book-intermediate .essence-icon { background:var(--inter-pale); }
+.essence-item strong { display:block; font-size:12px; font-weight:500; color:var(--charcoal); margin-bottom:4px; }
+.essence-item span { font-size:11px; color:var(--stone); line-height:1.5; display:block; }
+
+/* ── ANATOMY ── */
+.anatomy-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:0.75rem; }
+.anatomy-item { background:var(--cream); border-radius:10px; padding:1rem; }
+.anatomy-item strong { display:block; font-size:12px; font-weight:500; margin-bottom:4px; }
+body.book-essential .anatomy-item strong { color:var(--sage-deep); }
+body.book-intermediate .anatomy-item strong { color:var(--inter-deep); }
+.anatomy-item span { font-size:12px; color:var(--stone); line-height:1.55; }
+
+/* ── EXERCISE GRID ── */
+.ex-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px; margin-top:0.75rem; }
+.ex-item { background:var(--cream); border-radius:10px; padding:0.85rem 1rem; border:1px solid transparent; transition:border-color 0.2s; }
+body.book-essential .ex-item:hover { border-color:var(--sage-light); }
+body.book-intermediate .ex-item:hover { border-color:var(--inter-light); }
+.ex-name { font-size:13px; font-weight:500; color:var(--charcoal); display:block; margin-bottom:3px; }
+.ex-new { font-size:9px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; padding:2px 6px; border-radius:4px; margin-left:4px; vertical-align:middle; }
+body.book-intermediate .ex-new { background:var(--inter-pale); color:var(--inter-deep); }
+.ex-desc { font-size:11px; color:var(--stone); line-height:1.45; }
+
+/* ── FOCUS GRID ── */
+.focus-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:8px; margin-top:0.75rem; }
+.focus-item { border-radius:10px; padding:0.85rem 1rem; font-size:13px; line-height:1.55; }
+body.book-essential .focus-item { background:var(--sage-pale); color:var(--sage-deep); }
+body.book-intermediate .focus-item { background:var(--inter-pale); color:var(--inter-deep); }
+
+/* ── COMPARISON TABLE ── */
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
+.compare-col { background:var(--cream); border-radius:12px; padding:1.25rem; }
+.compare-col h4 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; margin-bottom:0.75rem; padding-bottom:0.5rem; border-bottom:2px solid; }
+.compare-col.ess h4 { color:var(--sage-deep); border-color:var(--sage); }
+.compare-col.int h4 { color:var(--inter-deep); border-color:var(--inter); }
+.compare-col ul { list-style:none; padding:0; }
+.compare-col ul li { font-size:12px; color:var(--stone); padding:0.25rem 0 0.25rem 1rem; position:relative; border-bottom:1px solid var(--stone-pale); }
+.compare-col ul li:last-child { border-bottom:none; }
+.compare-col.ess li::before { content:'·'; position:absolute; left:0; color:var(--sage); }
+.compare-col.int li::before { content:'·'; position:absolute; left:0; color:var(--inter); }
+@media(max-width:580px){ .compare-grid { grid-template-columns:1fr; } }
+
+/* ── SEARCH ── */
+.search-wrap { position:relative; margin-bottom:1.25rem; }
+.search-wrap input { width:100%; padding:10px 16px 10px 40px; border:1px solid var(--stone-pale); border-radius:100px; font-family:'DM Sans',sans-serif; font-size:14px; background:var(--warm-white); color:var(--charcoal); outline:none; transition:border-color 0.2s; }
+body.book-essential .search-wrap input:focus { border-color:var(--sage-light); }
+body.book-intermediate .search-wrap input:focus { border-color:var(--inter-light); }
+.search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--stone-light); font-size:16px; pointer-events:none; }
+
+/* ── FLASHCARDS ── */
+.fc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:0.75rem; }
+.fc-header h2 { font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; }
+.fc-controls-top { display:flex; gap:8px; flex-wrap:wrap; }
+.btn { font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 16px; border-radius:100px; border:1px solid var(--stone-pale); background:var(--warm-white); color:var(--charcoal); cursor:pointer; transition:all 0.2s; font-weight:400; }
+.btn:hover { background:var(--stone-pale); }
+.btn-primary { color:white; border-color:transparent; }
+body.book-essential .btn-primary { background:var(--sage); }
+body.book-essential .btn-primary:hover { background:var(--sage-deep); }
+body.book-intermediate .btn-primary { background:var(--inter); }
+body.book-intermediate .btn-primary:hover { background:var(--inter-deep); }
+.fc-progress-wrap { margin-bottom:1.5rem; }
+.fc-progress-labels { display:flex; justify-content:space-between; font-size:12px; color:var(--stone); margin-bottom:6px; }
+.fc-progress-bar { height:3px; background:var(--stone-pale); border-radius:3px; overflow:hidden; }
+.fc-progress-fill { height:100%; border-radius:3px; transition:width 0.4s ease; }
+body.book-essential .fc-progress-fill { background:var(--sage); }
+body.book-intermediate .fc-progress-fill { background:var(--inter); }
+.fc-scene { perspective:1000px; margin-bottom:1.25rem; cursor:pointer; }
+.fc-flip { position:relative; min-height:240px; transform-style:preserve-3d; transition:transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+.fc-flip.flipped { transform:rotateY(180deg); }
+.fc-face { position:absolute; width:100%; min-height:240px; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2.5rem 2rem; }
+.fc-front { background:var(--warm-white); border:1px solid var(--stone-pale); }
+.fc-back { transform:rotateY(180deg); }
+body.book-essential .fc-back { background:var(--sage-deep); }
+body.book-intermediate .fc-back { background:var(--inter-deep); }
+.fc-face-label { font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; margin-bottom:1rem; }
+.fc-front .fc-face-label { color:var(--sage); }
+body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
+.fc-back .fc-face-label { color:rgba(255,255,255,0.6); }
+.fc-question { font-family:'DM Serif Display',serif; font-size:1.2rem; font-weight:400; color:var(--charcoal); line-height:1.45; max-width:520px; }
+.fc-answer { font-size:14px; color:rgba(247,244,239,0.9); line-height:1.7; max-width:520px; white-space:pre-line; }
+.fc-tap-hint { position:absolute; bottom:1rem; font-size:11px; color:var(--stone-light); letter-spacing:0.05em; }
+.fc-nav { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:2rem; }
+.fc-nav-btn { width:44px; height:44px; border-radius:50%; border:1px solid var(--stone-pale); background:var(--warm-white); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; color:var(--charcoal); font-family:'DM Sans',sans-serif; }
+.fc-nav-btn:hover { background:var(--stone-pale); }
+.fc-counter-display { font-size:14px; color:var(--stone); min-width:80px; text-align:center; font-variant-numeric:tabular-nums; }
+.fc-status-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.fc-status-btn { font-family:'DM Sans',sans-serif; font-size:12px; padding:6px 14px; border-radius:100px; border:1px solid; cursor:pointer; transition:all 0.2s; font-weight:400; }
+.status-knew { border-color:#8aad96; color:var(--sage-deep); background:var(--sage-pale); }
+.status-knew:hover { background:var(--sage-light); color:white; }
+.status-review { border-color:#d4a080; color:#8a4e2a; background:var(--accent-pale); }
+.status-review:hover { background:var(--accent); color:white; }
+.fc-score { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:1.5rem; }
+.score-item { background:var(--warm-white); border:1px solid var(--stone-pale); border-radius:12px; padding:1rem; text-align:center; }
+.score-num { font-family:'DM Serif Display',serif; font-size:2rem; font-weight:400; display:block; line-height:1; margin-bottom:4px; }
+.score-label { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--stone); }
+.score-knew .score-num { color:var(--sage); }
+.score-review .score-num { color:var(--accent); }
+.score-total .score-num { color:var(--charcoal); }
+
+/* ── CALLOUT ── */
+.callout { background:var(--inter-pale); border-left:3px solid var(--inter); border-radius:0 10px 10px 0; padding:1rem 1.25rem; margin:1rem 0; font-size:13px; color:var(--inter-deep); line-height:1.6; }
+.callout strong { font-weight:500; }
+
+@media(max-width:600px){
+  header { padding:1.75rem 1.25rem 1.5rem; }
+  main { padding:1.5rem 1rem 3rem; }
+  .card { padding:1.25rem; }
+  .fc-face { padding:2rem 1.25rem; }
+  nav { padding:0 0.5rem; }
+  .nav-btn { padding:0.9rem 0.75rem; }
+  .book-switch { padding:0 0.5rem; }
+  .book-btn { padding:0.75rem 1rem; }
+}
+</style>
+</head>
+<body class="book-essential">
+
+<header>
+  <div class="header-label">Ada's Study Guide · STOTT PILATES</div>
+  <h1>Reformer <em>Studies</em></h1>
+  <p>Essential &amp; Intermediate Reformer — notes, essences &amp; flashcards</p>
+</header>
+
+<!-- Book switcher -->
+<div class="book-switch">
+  <button class="book-btn active" data-book="essential" onclick="switchBook('essential',this)">
+    <span class="bk-num">1</span> Essential Reformer
+  </button>
+  <button class="book-btn" data-book="intermediate" onclick="switchBook('intermediate',this)">
+    <span class="bk-num">2</span> Intermediate Reformer
+  </button>
+</div>
+
+<!-- Section nav (shared, relabelled per book by JS) -->
+<nav id="main-nav">
+  <button class="nav-btn active" onclick="showSection('overview',this)">Overview</button>
+  <button class="nav-btn" onclick="showSection('principles',this)">Principles</button>
+  <button class="nav-btn" onclick="showSection('essences',this)">Essences</button>
+  <button class="nav-btn" onclick="showSection('exercises',this)">Exercises</button>
+  <button class="nav-btn" onclick="showSection('anatomy',this)">Anatomy</button>
+  <button class="nav-btn" onclick="showSection('flashcards',this)">Flashcards</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     BOOK 1 — ESSENTIAL REFORMER
+════════════════════════════════════════════════════ -->
+<div id="book-essential" class="book-view active">
+<main>
+
+<!-- OVERVIEW -->
+<div id="ess-overview" class="section active">
+  <div class="card">
+    <div class="card-tag tag-sage">Introduction</div>
+    <h2>What is STOTT PILATES?</h2>
+    <p>A contemporary approach to the mind-body exercises pioneered by Joseph H. Pilates, developed by Merrithew. It incorporates modern exercise science and spinal rehabilitation knowledge into more than 500 systematic matwork and equipment-based exercises.</p>
+    <p>The focus is on core stability — including pelvic and shoulder girdle stabilization, neutral alignment, and breathing — resulting in a balanced, aligned body that looks fit, feels revitalized, and moves with ease.</p>
+    <h3>Benefits</h3>
+    <ul>
+      <li>Longer, leaner muscles</li>
+      <li>Core strength and stability</li>
+      <li>Injury prevention</li>
+      <li>Relief from stress and back pain</li>
+      <li>Better posture</li>
+      <li>Improved balance and coordination</li>
+      <li>Enhanced athletic performance</li>
+      <li>Effective post-rehabilitation</li>
+      <li>Heightened mind-body awareness and increased self-confidence</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">This Manual</div>
+    <h2>Essential Reformer — Level Overview</h2>
+    <p>Covers the complete range of Essential-level Reformer exercises. Modifications are included to accommodate individual limitations or to increase challenge. The Essential level builds the core vocabulary before progressing to Intermediate.</p>
+    <h3>Levels in the STOTT PILATES system</h3>
+    <ul>
+      <li>Preparatory</li>
+      <li><strong>Essential</strong> ← you are here</li>
+      <li>Intermediate</li>
+      <li>Advanced</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-accent">Equipment & Safety</div>
+    <h2>Reformer Safety Rules</h2>
+    <ul>
+      <li>Always ensure at least one spring is attached to the gearbar before getting on</li>
+      <li>The Reformer should be used under supervision of a trained professional</li>
+      <li>Consult a physician before beginning any exercise program</li>
+      <li>Stop immediately if you experience chest pain, faintness, or musculoskeletal discomfort</li>
+      <li>Keep body, clothing and hair free from all moving parts</li>
+      <li>Allow at least two feet of clear space on either side</li>
+      <li>Do not attempt to repair equipment yourself — consult Merrithew</li>
+      <li>Do not allow children to use or be around equipment without adult supervision</li>
+    </ul>
+    <h3>Getting into supine on the Reformer</h3>
+    <p>Sit on the carriage with legs off to one side. Reach hand nearest the footbar across body to shoulder rest. Tuck opposite shoulder under arm and roll onto back, lowering head to headrest. Bring legs up and place feet on footbar, lower arms by side.</p>
+    <h3>Key Accessories</h3>
+    <ul>
+      <li>Mat converter — stable matwork surface</li>
+      <li>Jumpboard / Cardio-Tramp Rebounder — plyometric exercises</li>
+      <li>Rotational Diskboard — controlled internal and external rotation</li>
+      <li>Cross-Bow — ideal alignment for hands, wrists, shoulders</li>
+      <li>Padded platform extender — widens platform; elevates pelvis when sitting</li>
+      <li>Gripper mat — increases traction to prevent slipping</li>
+      <li>Reformer box (long or short side) — facilitates and varies exercises</li>
+      <li>Footstrap — keeps feet secure on the box</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PRINCIPLES -->
+<div id="ess-principles" class="section">
+  <div class="card">
+    <div class="card-tag tag-sage">Basic Principles</div>
+    <h2>The Five Basic Principles</h2>
+    <p>These five principles are the basis of all STOTT PILATES exercises. They work together — not as separate entities — to create intelligent exercise that is both safe and effective.</p>
+    <div class="principle-grid">
+      <div class="principle-item"><div class="principle-num">Principle 1</div><h4>Breathing</h4><p>Inhale through nose, expanding rib cage three-dimensionally (posteriorly and laterally). Exhale through pursed lips. Exhale = spinal flexion (rib cage closes in/down). Inhale = spinal extension (rib cage opens out/up). Light TVA and pelvic floor engagement throughout both phases.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 2</div><h4>Pelvic Placement</h4><p><strong>Neutral</strong> — ASIS and pubis symphysis in the same horizontal plane; normal lumbar curve present. Most stable, shock-absorbing position.<br><strong>Imprint</strong> — slight posterior pelvic tilt with light lumbar flexion; oblique abdominals contract. Used when neutral cannot be stabilized or load exceeds abdominal strength.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 3</div><h4>Rib Cage Placement</h4><p>Abdominal muscles attach to the lower ribs — must be recruited to maintain rib cage and thoracic alignment. Avoid rib cage lifting from mat (supine) or deviating forward (sitting). Avoid overly depressing on exhale. Thoracic flexion on exhale; thoracic extension on inhale.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 4</div><h4>Scapular Movement & Stabilization</h4><p>Stabilizing the scapulae on the rib cage anchors the arms and supports the cervical spine. Initiate stabilization at the start of every exercise. Key muscles: serratus anterior, trapezius, rhomboids, levator scapulae, pectoralis minor. Movements: elevation, depression, retraction, protraction, rotation.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 5</div><h4>Head & Cervical Placement</h4><p>Cervical spine holds natural curve; skull balanced above shoulders. Cranio-vertebral flexion incorporated whenever thoracic spine moves into flexion — lengthen back of neck and flex cranium on first two cervical vertebrae. Avoid jamming chin to chest (fist-width space) and cervical overextension.</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Breathing Quick Reference</div>
+    <h2>When to Inhale vs Exhale</h2>
+    <div class="principle-grid">
+      <div class="principle-item"><div class="principle-num">On Inhale</div><h4>Spinal Extension</h4><p>Rib cage opens anteriorly and expands — allows greater range of motion in extension. Maintain abdominal engagement so spinal stability is not lost.</p></div>
+      <div class="principle-item"><div class="principle-num">On Exhale</div><h4>Spinal Flexion</h4><p>Rib cage closes in and down — naturally facilitates flexion. Most flexion-based movements are performed on the exhale. An exhale may also support spinal extension when stability demands are high.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ESSENCES -->
+<div id="ess-essences" class="section">
+  <div class="card">
+    <div class="card-tag tag-sage">Essences</div>
+    <h2>The Seven Exercise Essences</h2>
+    <p>Each STOTT PILATES exercise has a specific goal. These essential elements guide what to emphasize and how to modify while still working toward that goal.</p>
+    <div class="essence-grid">
+      <div class="essence-item"><div class="essence-icon">🎯</div><strong>Target Muscles</strong><span>Muscles emphasized for strengthening — as stabilizers or mobilizers. Not all muscles working, just those on which emphasis is placed.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚓</div><strong>Stability</strong><span>Keeping one part of the body still while another moves. Requires muscular control and constancy, especially spine stabilization during all movement planes.</span></div>
+      <div class="essence-item"><div class="essence-icon">〰️</div><strong>Mobility</strong><span>Emphasizes movement at a joint or series of joints — such as the spine, hip, or shoulder girdle.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔢</div><strong>Sequencing</strong><span>The order in which movements happen — which joint moves first, which moves second, and where movement initiates from (especially important for spinal articulation).</span></div>
+      <div class="essence-item"><div class="essence-icon">⏱️</div><strong>Endurance</strong><span>Recruiting the same muscle group over a sustained period of time, building muscular endurance.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚖️</div><strong>Balance</strong><span>Challenging balance by narrowing the base of support, requiring greater neuromuscular control.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔀</div><strong>Coordination</strong><span>Challenging coordination with more simultaneous movements or a more complex sequence of movements.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Starting Positions</div>
+    <h2>Common Starting Positions on the Reformer</h2>
+    <ul>
+      <li><strong>Supine</strong> — lying on back, pelvis and spine neutral or imprint, arms long by sides</li>
+      <li><strong>Sitting on carriage</strong> — seated upright, weight on sit bones, spine neutral</li>
+      <li><strong>Sitting on box</strong> — box placed on carriage, long or short side facing footbar</li>
+      <li><strong>Quadruped / kneeling</strong> — on hands and knees or kneeling on carriage; maintain balance especially with movement</li>
+      <li><strong>Standing on carriage</strong> — advanced; ensure springs are engaged and use a spotter</li>
+      <li><strong>Prone</strong> — lying face-down on carriage or box</li>
+      <li><strong>Side-lying</strong> — lateral position on carriage or box</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXERCISES -->
+<div id="ess-exercises" class="section">
+  <div class="card">
+    <div class="card-tag tag-sage">Exercises</div>
+    <h2>Essential Reformer Repertoire (29 exercises)</h2>
+    <div class="search-wrap"><span class="search-icon">⌕</span><input type="text" id="ess-search" placeholder="Search exercises..." oninput="filterEx('ess')" /></div>
+    <div class="ex-grid" id="ess-ex-grid">
+      <div class="ex-item"><span class="ex-name">Footwork</span><span class="ex-desc">Parallel, V, heels, hip-width, wide; foundational leg press</span></div>
+      <div class="ex-item"><span class="ex-name">Second Position</span><span class="ex-desc">Wide stance footwork; adductor and hip stability</span></div>
+      <div class="ex-item"><span class="ex-name">Single Leg</span><span class="ex-desc">Unilateral pelvic and lumbar stability challenge</span></div>
+      <div class="ex-item"><span class="ex-name">Hundred</span><span class="ex-desc">Abdominal endurance; pumping arms; legs in tabletop or extended</span></div>
+      <div class="ex-item"><span class="ex-name">Bend & Stretch</span><span class="ex-desc">Hip flexion and extension in strap; hamstring and hip mobility</span></div>
+      <div class="ex-item"><span class="ex-name">Lift & Lower</span><span class="ex-desc">Adductor activation; hip stabilization in open kinetic chain</span></div>
+      <div class="ex-item"><span class="ex-name">Adductor Stretch</span><span class="ex-desc">Inner thigh lengthening with leg in strap</span></div>
+      <div class="ex-item"><span class="ex-name">Short Spine Prep</span><span class="ex-desc">Preparatory spinal articulation; pelvic stability focus</span></div>
+      <div class="ex-item"><span class="ex-name">Short Spine</span><span class="ex-desc">Full sequential spinal articulation in foot straps</span></div>
+      <div class="ex-item"><span class="ex-name">Midback Series</span><span class="ex-desc">Shoulder girdle and upper back strengthening in straps</span></div>
+      <div class="ex-item"><span class="ex-name">Back Rowing Preps</span><span class="ex-desc">Scapular stabilization and posterior chain rowing pattern</span></div>
+      <div class="ex-item"><span class="ex-name">Side Arm Preps Sitting</span><span class="ex-desc">Lateral arm work in sitting; scapular control</span></div>
+      <div class="ex-item"><span class="ex-name">Side Twist Sitting</span><span class="ex-desc">Rotational mobility and oblique activation in sitting</span></div>
+      <div class="ex-item"><span class="ex-name">Front Rowing Preps</span><span class="ex-desc">Anterior rowing pattern; scapular protraction and retraction</span></div>
+      <div class="ex-item"><span class="ex-name">Stomach Massage</span><span class="ex-desc">Spinal mobility; hip flexor stretch; seated on box at footbar</span></div>
+      <div class="ex-item"><span class="ex-name">Arms Pulling Straps</span><span class="ex-desc">Long box — prone; posterior chain and shoulder extension</span></div>
+      <div class="ex-item"><span class="ex-name">Round Back</span><span class="ex-desc">Short box — spinal flexion and C-curve; abdominal control</span></div>
+      <div class="ex-item"><span class="ex-name">Straight Back</span><span class="ex-desc">Short box — neutral spine balance with arms reaching</span></div>
+      <div class="ex-item"><span class="ex-name">Twist</span><span class="ex-desc">Short box — rotational control and oblique strength</span></div>
+      <div class="ex-item"><span class="ex-name">Tree</span><span class="ex-desc">Short box — hamstring stretch combined with balance</span></div>
+      <div class="ex-item"><span class="ex-name">Elephant</span><span class="ex-desc">Spinal decompression; hamstring lengthening; standing on carriage</span></div>
+      <div class="ex-item"><span class="ex-name">Mermaid</span><span class="ex-desc">Lateral spinal flexion; intercostal and lateral trunk stretch</span></div>
+      <div class="ex-item"><span class="ex-name">Leg Circles</span><span class="ex-desc">Hip mobility in full circle; pelvic stability in strap</span></div>
+      <div class="ex-item"><span class="ex-name">Knee Stretches</span><span class="ex-desc">Spinal flexion in quadruped; hip flexor and knee mobility</span></div>
+      <div class="ex-item"><span class="ex-name">Running</span><span class="ex-desc">Alternating calf and ankle mobility; cardiovascular variation</span></div>
+      <div class="ex-item"><span class="ex-name">Hip Lift</span><span class="ex-desc">Posterior chain bridging on Reformer; glute activation</span></div>
+      <div class="ex-item"><span class="ex-name">Hip Rolls</span><span class="ex-desc">Sequential spinal articulation in bridge position</span></div>
+      <div class="ex-item"><span class="ex-name">Single Thigh Stretch</span><span class="ex-desc">Hip flexor lengthening in lunge; lumbar stability challenge</span></div>
+      <div class="ex-item"><span class="ex-name">Side Splits</span><span class="ex-desc">Adductor control and balance in standing; open kinetic chain</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Footwork Focus</div>
+    <h2>Consistent Footwork Focus Points</h2>
+    <p>Remain constant throughout Footwork, Second Position, and Single Leg.</p>
+    <div class="focus-grid">
+      <div class="focus-item">Stabilize pelvis and lumbar in neutral; avoid posterior or anterior tilt</div>
+      <div class="focus-item">Stabilize rib cage and scapulae throughout; avoid upper body tension</div>
+      <div class="focus-item">Extend legs fully (except small-range variation) without locking or overextending knees</div>
+      <div class="focus-item">Maintain alignment through center of hip, knee, and ankle joints</div>
+      <div class="focus-item">Use vasti to track patella properly (vastus medialis often needs encouragement)</div>
+      <div class="focus-item">Both legs work equally in Footwork and Second Position</div>
+      <div class="focus-item">Maintain pelvis level; avoid rotation and lateral tilting</div>
+      <div class="focus-item">Avoid tension in upper shoulders and neck</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY -->
+<div id="ess-anatomy" class="section">
+  <div class="card">
+    <div class="card-tag tag-sage">Key Muscles</div>
+    <h2>Important Muscles to Know</h2>
+    <div class="anatomy-grid">
+      <div class="anatomy-item"><strong>Transversus Abdominis (TVA)</strong><span>Deepest abdominal layer; wraps horizontally around torso between lower ribs and pelvis. Acts as a girdle for the lumbo-pelvic region. Active throughout both inhale and exhale.</span></div>
+      <div class="anatomy-item"><strong>Multifidus</strong><span>Deep segmental spinal muscle. Works with TVA to stabilize the lumbar spine locally. Key to safe, effective exercise.</span></div>
+      <div class="anatomy-item"><strong>Pelvic Floor</strong><span>Sheet of muscle between pubic bone, coccyx, and ischium. Co-contracts with TVA. Sub-maximal engagement — imagine gently contracting and lifting.</span></div>
+      <div class="anatomy-item"><strong>Oblique Abdominals</strong><span>Activated on exhale; shorten as pelvis and ribs move toward imprint, lengthen toward neutral. Assist TVA.</span></div>
+      <div class="anatomy-item"><strong>Serratus Anterior</strong><span>Keeps medial border of scapula flat on rib cage. Prevents winging. Active during overhead movements and thoracic flexion.</span></div>
+      <div class="anatomy-item"><strong>Trapezius</strong><span>Upper fibers elevate scapula; middle retract; lower depress. Works with rhomboids and serratus for balanced scapular stability.</span></div>
+      <div class="anatomy-item"><strong>Rhomboids</strong><span>Retract (pull inward) the scapulae toward the spine. Important in rowing and pulling movements.</span></div>
+      <div class="anatomy-item"><strong>Vastus Medialis (VMO)</strong><span>Tracks the patella properly during leg extension. Often undertrained — specifically cued in Footwork.</span></div>
+      <div class="anatomy-item"><strong>Diaphragm</strong><span>Primary breathing muscle. Depresses on inhale allowing abdomen to expand slightly. Efficient gas exchange occurs more in the lower lobes of the lungs.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Landmarks</div>
+    <h2>Key Anatomical Landmarks</h2>
+    <div class="anatomy-grid">
+      <div class="anatomy-item"><strong>ASIS</strong><span>Anterior Superior Iliac Spine. Front bony prominence of each hip. In neutral: ASIS and pubis symphysis lie in the same horizontal plane.</span></div>
+      <div class="anatomy-item"><strong>Pubis Symphysis</strong><span>Joint at the front of the pelvis between the two pubic bones. Lies in the same horizontal plane as the ASIS in neutral.</span></div>
+      <div class="anatomy-item"><strong>Sit Bones (Ischial Tuberosities)</strong><span>Bony points at the base of the pelvis. Primary weight-bearing contact points in seated positions.</span></div>
+      <div class="anatomy-item"><strong>Sacrum</strong><span>Triangular bone at the base of the spine. Contacts the mat in supine. Should maintain contact in neutral alignment.</span></div>
+      <div class="anatomy-item"><strong>Thoracolumbar Fascia</strong><span>Dense connective tissue in the back into which the TVA attaches posteriorly. TVA tightening acts as a girdle through this fascia.</span></div>
+      <div class="anatomy-item"><strong>Coccyx</strong><span>The tailbone — lowest section of the spine. One attachment point of the pelvic floor muscles.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-accent">Kinetic Chains</div>
+    <h2>Open vs Closed Kinetic Chain</h2>
+    <p><strong>Closed kinetic chain:</strong> The distal end (foot or hand) is fixed against a stable surface — e.g. feet on the footbar. Pelvis and spine are ideally neutral.</p>
+    <p><strong>Open kinetic chain:</strong> The distal end is free to move — e.g. legs in straps, arms in straps. Greater stabilization demand. Imprint may be needed until abdominals are strong enough to maintain neutral.</p>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="ess-flashcards" class="section">
+  <div class="fc-header">
+    <h2>Flashcards — Essential</h2>
+    <div class="fc-controls-top">
+      <button class="btn" onclick="shuffleCards('ess')">↺ Shuffle</button>
+      <button class="btn" onclick="resetCards('ess')">Reset</button>
+      <button class="btn btn-primary" onclick="filterReview('ess')">Review marked ↗</button>
+    </div>
+  </div>
+  <div class="fc-progress-wrap">
+    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
+    <div class="fc-progress-bar"><div class="fc-progress-fill" id="ess-fc-progress-fill" style="width:4%"></div></div>
+  </div>
+  <div class="fc-scene" onclick="flipCard('ess')">
+    <div class="fc-flip" id="ess-fc-flip">
+      <div class="fc-face fc-front"><div class="fc-face-label">Question</div><div class="fc-question" id="ess-fc-q">Loading...</div><div class="fc-tap-hint">tap to reveal answer</div></div>
+      <div class="fc-face fc-back"><div class="fc-face-label">Answer</div><div class="fc-answer" id="ess-fc-a"></div></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-nav-btn" onclick="prevCard('ess')">‹</button>
+    <span class="fc-counter-display" id="ess-fc-counter">1 / 24</span>
+    <button class="fc-nav-btn" onclick="nextCard('ess')">›</button>
+  </div>
+  <div class="fc-status-row">
+    <button class="fc-status-btn status-knew" onclick="markCard('ess','knew')">✓ Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('ess','review')">↺ Needs review</button>
+  </div>
+  <div class="fc-score">
+    <div class="score-item score-total"><span class="score-num" id="ess-s-total">24</span><span class="score-label">Total cards</span></div>
+    <div class="score-item score-knew"><span class="score-num" id="ess-s-knew">0</span><span class="score-label">Knew it</span></div>
+    <div class="score-item score-review"><span class="score-num" id="ess-s-review">0</span><span class="score-label">To review</span></div>
+  </div>
+</div>
+
+</main>
+</div><!-- end book-essential -->
+
+
+<!-- ════════════════════════════════════════════════════
+     BOOK 2 — INTERMEDIATE REFORMER
+════════════════════════════════════════════════════ -->
+<div id="book-intermediate" class="book-view">
+<main>
+
+<!-- OVERVIEW -->
+<div id="int-overview" class="section active">
+  <div class="card">
+    <div class="card-tag tag-inter">Level Overview</div>
+    <h2>Intermediate Reformer</h2>
+    <p>Builds directly on the Essential level, introducing more complex exercises, increased coordination demands, greater range of motion, new positions (prone on box, kneeling, standing), and more dynamic movement patterns. The same Five Basic Principles and Seven Exercise Essences apply — but with heightened difficulty and subtlety.</p>
+    <div class="callout"><strong>Key progression from Essential:</strong> Intermediate adds exercises in new positions (kneeling, long-stretch on carriage), introduces dynamic spinal articulation (Long Spine), adds challenge to already-known exercises (e.g. Beats, Frog, Coordination), and introduces standing balance work (Front/Back/Side Splits, Star Prep).</div>
+    <h3>What's new at Intermediate level</h3>
+    <ul>
+      <li>Beats — lateral rotation and abduction with pelvic stability</li>
+      <li>Frog — hip circle in straps; both directions</li>
+      <li>Stag — asymmetrical leg position in straps</li>
+      <li>Coordination — full-body pattern with arm and leg sequencing</li>
+      <li>Back Rowing and Front Rowing (full) — seated rowing series</li>
+      <li>Backstroke Prep (Long Box) — prone; posterior chain with rotation</li>
+      <li>Feet Pulling Straps (Box) — seated spinal rotation</li>
+      <li>Long Stretch, Down Stretch, Up Stretch — standing on carriage; plank and extension work</li>
+      <li>Elephant (Intermediate) — standing; added mobility demands</li>
+      <li>Semicircle — supine; hip extension and flexion arc with spinal articulation</li>
+      <li>Chest Expansion — kneeling; thoracic extension with rotation</li>
+      <li>Side Arm Preps Kneeling, Side Twist Kneeling, Reverse Expansion — kneeling series</li>
+      <li>Mermaid (Short Box), Lean — short box lateral flexion variations</li>
+      <li>Long Spine — supine in straps; full spinal articulation into inversion</li>
+      <li>Front Splits, Back Splits, Side Splits (Intermediate) — standing balance</li>
+      <li>Star Prep — side-lying; hip abduction and balance challenge</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Progression Notes</div>
+    <h2>Key Differences from Essential</h2>
+    <div class="compare-grid">
+      <div class="compare-col ess">
+        <h4>Essential Level</h4>
+        <ul>
+          <li>Supine and seated as primary positions</li>
+          <li>Short Spine (prep + full) in straps</li>
+          <li>Side Splits (basic)</li>
+          <li>Leg Circles (basic)</li>
+          <li>Arms Pulling Straps on Long Box</li>
+          <li>Short Box series (Round, Straight, Twist, Tree)</li>
+          <li>Elephant (basic standing)</li>
+          <li>Stomach Massage (Round Back, Straight Back)</li>
+        </ul>
+      </div>
+      <div class="compare-col int">
+        <h4>Intermediate Level</h4>
+        <ul>
+          <li>Kneeling, prone, and standing positions added</li>
+          <li>Long Spine (full inversion articulation)</li>
+          <li>Front, Back and Side Splits (standing balance)</li>
+          <li>Leg Circles (laterally rotated variation)</li>
+          <li>Backstroke Prep; Plow (Long Box prone)</li>
+          <li>Short Box adds Mermaid, Lean, Twist with Round Back</li>
+          <li>Elephant (straighter back, more hip mobility)</li>
+          <li>Stomach Massage adds Reach, Twist variations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLES -->
+<div id="int-principles" class="section">
+  <div class="card">
+    <div class="card-tag tag-inter">Basic Principles</div>
+    <h2>Five Basic Principles — Intermediate Application</h2>
+    <p>The same five principles apply at Intermediate level, but with greater demand on each. The body must maintain them through more dynamic, complex, and range-intensive movement.</p>
+    <div class="principle-grid">
+      <div class="principle-item"><div class="principle-num">Principle 1</div><h4>Breathing</h4><p>Same pattern — inhale through nose (rib cage expands three-dimensionally), exhale through pursed lips. At Intermediate level, breathing must be maintained through more complex sequences, kneeling and standing positions, and exercises requiring simultaneous arm and leg coordination. Awareness of breath facilitates adaptation to higher physical demands.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 2</div><h4>Pelvic Placement</h4><p>Neutral remains the goal. Imprint used when load exceeds abdominal capacity — particularly in open-chain exercises like straps work. New Intermediate exercises (Long Spine, Frog, Long Stretch) specifically challenge the ability to maintain pelvic neutral under greater range and load. Square pelvis is critical in standing exercises (Splits series, Star Prep).</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 3</div><h4>Rib Cage Placement</h4><p>Must be maintained in new and more demanding positions — prone on box, kneeling, standing. Particularly challenged in thoracic extension exercises (Down Stretch, Chest Expansion). Avoid overextending by depressing or collapsing rib cage on exhale during these movements.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 4</div><h4>Scapular Stabilization</h4><p>Greater arm-loading in Intermediate requires scapular stabilization to be robust. Especially important in kneeling exercises (Chest Expansion, Side Arm Preps Kneeling, Reverse Expansion) and prone long-box work. Shoulders should not round forward or elevate during arm movements. Avoid winging of the scapulae.</p></div>
+      <div class="principle-item"><div class="principle-num">Principle 5</div><h4>Head & Cervical Placement</h4><p>Increased range of thoracic extension in Intermediate exercises means greater demand on cervical alignment. Keep the eyeline appropriate to the degree of extension — avoid cervical overextension. In prone (Long Box), ensure even extension from cervical through lumbar spine.</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Pelvic Placement in New Positions</div>
+    <h2>Pelvic & Spine Alignment — Position Notes</h2>
+    <ul>
+      <li><strong>Standing on carriage (Elephant, Stretches):</strong> Keep spine long — neither over-arching nor over-rounding. Abdominal support prevents lumbar sinking as hips extend</li>
+      <li><strong>Kneeling:</strong> Pelvis neutral; avoid anterior tilt (common in kneeling due to hip flexor tightness). Scapulae stabilized before arm movement begins</li>
+      <li><strong>Prone on box:</strong> Pelvis neutral/imprint; gluteals engage to stabilize; avoid collapsing into lumbar extension</li>
+      <li><strong>Sitting on box:</strong> Weight back on sit bones, spine long; roll pelvis from front of femur, not by leaning back</li>
+      <li><strong>Semicircle:</strong> Pelvic neutral on press out, articulate on return arc — sequencing of imprint to neutral is the essence</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ESSENCES -->
+<div id="int-essences" class="section">
+  <div class="card">
+    <div class="card-tag tag-inter">Essences</div>
+    <h2>Seven Exercise Essences — Applied at Intermediate</h2>
+    <p>The same seven essences apply, but Intermediate exercises frequently emphasize multiple essences simultaneously and demand higher-level execution of each.</p>
+    <div class="essence-grid">
+      <div class="essence-item"><div class="essence-icon">🎯</div><strong>Target Muscles</strong><span>More complex target muscle patterns — e.g. Coordination targets TVA, obliques, hip flexors, and extensors all simultaneously.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚓</div><strong>Stability</strong><span>Torso stability challenged in standing, prone, and kneeling. Pelvis must stay square as limbs move in larger ranges (Long Spine, Frog, Star Prep).</span></div>
+      <div class="essence-item"><div class="essence-icon">〰️</div><strong>Mobility</strong><span>Greater joint mobility required — full hip circles (Frog), full spinal articulation into inversion (Long Spine), thoracic extension (Down Stretch, Chest Expansion).</span></div>
+      <div class="essence-item"><div class="essence-icon">🔢</div><strong>Sequencing</strong><span>More complex movement sequences — e.g. Coordination sequences leg extension and opening, then closing, then return, while maintaining arm pull-in.</span></div>
+      <div class="essence-item"><div class="essence-icon">⏱️</div><strong>Endurance</strong><span>Sustained stability under greater load and range. Running, Beats, and Hundred (at Intermediate pace) challenge muscular endurance significantly.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚖️</div><strong>Balance</strong><span>Significantly increased — Front/Back/Side Splits, Star Prep, and all standing-on-carriage exercises challenge balance with a moving base of support.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔀</div><strong>Coordination</strong><span>The Coordination exercise itself epitomizes this essence. Also present in kneeling exercises requiring simultaneous arm pull and trunk stability.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-inter2">New Exercises — Key Essences</div>
+    <h2>What Each New Exercise Emphasizes</h2>
+    <ul>
+      <li><strong>Beats:</strong> Stability (torso) + Coordination (rhythm and breath with abduction/adduction)</li>
+      <li><strong>Frog:</strong> Mobility (hip circles, both directions) + Stability (pelvis stays neutral)</li>
+      <li><strong>Stag:</strong> Stability (asymmetrical leg challenge) + Target Muscles (hip flexors, adductors)</li>
+      <li><strong>Coordination:</strong> Coordination (simultaneous arm pull + leg sequencing) + Sequencing</li>
+      <li><strong>Long Spine:</strong> Mobility (full spinal articulation) + Sequencing (tail to thoracic roll-up) + Balance (on upper thoracic area)</li>
+      <li><strong>Long Stretch:</strong> Stability (plank/dart position) + Target Muscles (glutes, scapular stabilizers, abdominals)</li>
+      <li><strong>Down Stretch:</strong> Mobility (thoracic extension) + Stability (pelvis and shoulders must not collapse)</li>
+      <li><strong>Up Stretch:</strong> Mobility (pike and extension) + Sequencing (spine flexes from head on return)</li>
+      <li><strong>Semicircle:</strong> Sequencing (pelvic articulation through arc) + Mobility (hip joint range)</li>
+      <li><strong>Chest Expansion:</strong> Stability (torso in kneeling) + Target Muscles (posterior chain, thoracic extensors)</li>
+      <li><strong>Star Prep:</strong> Balance (side-lying on carriage) + Target Muscles (hip abductors, lateral stabilizers)</li>
+      <li><strong>Front/Back/Side Splits:</strong> Balance (standing on moving carriage) + Stability (pelvis square)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXERCISES -->
+<div id="int-exercises" class="section">
+  <div class="card">
+    <div class="card-tag tag-inter">Exercises</div>
+    <h2>Intermediate Reformer Repertoire (45 exercises)</h2>
+    <p><span style="font-size:11px; background:var(--inter-pale); color:var(--inter-deep); padding:2px 8px; border-radius:4px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">NEW</span> = exercises introduced at Intermediate level (not in Essential)</p>
+    <div class="search-wrap"><span class="search-icon">⌕</span><input type="text" id="int-search" placeholder="Search exercises..." oninput="filterEx('int')" /></div>
+    <div class="ex-grid" id="int-ex-grid">
+      <div class="ex-item"><span class="ex-name">Footwork</span><span class="ex-desc">Same as Essential; same focus points apply</span></div>
+      <div class="ex-item"><span class="ex-name">Second Position</span><span class="ex-desc">Wide stance footwork; adductor and hip stability</span></div>
+      <div class="ex-item"><span class="ex-name">Single Leg</span><span class="ex-desc">Unilateral pelvic stability challenge</span></div>
+      <div class="ex-item"><span class="ex-name">Hundred</span><span class="ex-desc">Abdominal endurance; pumping arms</span></div>
+      <div class="ex-item"><span class="ex-name">Bend & Stretch</span><span class="ex-desc">Hip flexion/extension in strap</span></div>
+      <div class="ex-item"><span class="ex-name">Short Spine</span><span class="ex-desc">Full sequential spinal articulation in straps</span></div>
+      <div class="ex-item"><span class="ex-name">Beats <span class="ex-new">NEW</span></span><span class="ex-desc">Lateral rotation + abduction/adduction in straps; torso stability + coordination</span></div>
+      <div class="ex-item"><span class="ex-name">Frog <span class="ex-new">NEW</span></span><span class="ex-desc">Hip circles in straps (both directions); hip mobility + pelvic stability</span></div>
+      <div class="ex-item"><span class="ex-name">Stag <span class="ex-new">NEW</span></span><span class="ex-desc">Asymmetrical leg position in straps; hip flexor and adductor control</span></div>
+      <div class="ex-item"><span class="ex-name">Coordination <span class="ex-new">NEW</span></span><span class="ex-desc">Arms pull in + legs extend and open/close; full body coordination sequence</span></div>
+      <div class="ex-item"><span class="ex-name">Back Rowing <span class="ex-new">NEW</span></span><span class="ex-desc">Full seated rowing series; scapular control + spinal articulation</span></div>
+      <div class="ex-item"><span class="ex-name">Front Rowing <span class="ex-new">NEW</span></span><span class="ex-desc">Seated forward rowing; hip flexion initiation + scapular protraction</span></div>
+      <div class="ex-item"><span class="ex-name">Stomach Massage</span><span class="ex-desc">Extended series — Round Back, Straight Back, Reach, Twist variations</span></div>
+      <div class="ex-item"><span class="ex-name">Arms Pulling Straps</span><span class="ex-desc">Long box — Plow variation added at Intermediate</span></div>
+      <div class="ex-item"><span class="ex-name">Backstroke Prep <span class="ex-new">NEW</span></span><span class="ex-desc">Long box — prone; thoracic extension with arm circle pattern</span></div>
+      <div class="ex-item"><span class="ex-name">Feet Pulling Straps <span class="ex-new">NEW</span></span><span class="ex-desc">Box — seated; rotational spinal mobility with foot straps</span></div>
+      <div class="ex-item"><span class="ex-name">Round Back</span><span class="ex-desc">Short box — spinal flexion and C-curve</span></div>
+      <div class="ex-item"><span class="ex-name">Straight Back</span><span class="ex-desc">Short box — neutral spine balance</span></div>
+      <div class="ex-item"><span class="ex-name">Twist with Round Back <span class="ex-new">NEW</span></span><span class="ex-desc">Short box — rotation combined with spinal flexion</span></div>
+      <div class="ex-item"><span class="ex-name">Lean <span class="ex-new">NEW</span></span><span class="ex-desc">Short box — lateral flexion with rotation; coronal plane control</span></div>
+      <div class="ex-item"><span class="ex-name">Tree</span><span class="ex-desc">Short box — hamstring stretch and balance</span></div>
+      <div class="ex-item"><span class="ex-name">Mermaid (Short Box) <span class="ex-new">NEW</span></span><span class="ex-desc">Short box — lateral spinal flexion in sitting</span></div>
+      <div class="ex-item"><span class="ex-name">Long Stretch <span class="ex-new">NEW</span></span><span class="ex-desc">Standing on carriage in plank/dart; push carriage out and return</span></div>
+      <div class="ex-item"><span class="ex-name">Down Stretch <span class="ex-new">NEW</span></span><span class="ex-desc">Standing; thoracic extension as hips press carriage out, chest to ceiling</span></div>
+      <div class="ex-item"><span class="ex-name">Up Stretch <span class="ex-new">NEW</span></span><span class="ex-desc">Standing; pike position — flex spine from head on return</span></div>
+      <div class="ex-item"><span class="ex-name">Elephant</span><span class="ex-desc">Intermediate version: straighter back, more hip mobility demand</span></div>
+      <div class="ex-item"><span class="ex-name">Semicircle <span class="ex-new">NEW</span></span><span class="ex-desc">Supine; hip extension and flexion arc with sequential spinal articulation</span></div>
+      <div class="ex-item"><span class="ex-name">Chest Expansion <span class="ex-new">NEW</span></span><span class="ex-desc">Kneeling; pull straps back, thoracic extension + cervical rotation</span></div>
+      <div class="ex-item"><span class="ex-name">Side Arm Preps Kneeling <span class="ex-new">NEW</span></span><span class="ex-desc">Kneeling; lateral arm work with balance challenge</span></div>
+      <div class="ex-item"><span class="ex-name">Side Twist Kneeling <span class="ex-new">NEW</span></span><span class="ex-desc">Kneeling; rotational control in kneeling position</span></div>
+      <div class="ex-item"><span class="ex-name">Reverse Expansion <span class="ex-new">NEW</span></span><span class="ex-desc">Kneeling; push straps forward; thoracic extension + scapular stabilization</span></div>
+      <div class="ex-item"><span class="ex-name">Mermaid</span><span class="ex-desc">Lateral spinal flexion; intercostal stretch</span></div>
+      <div class="ex-item"><span class="ex-name">Leg Circles</span><span class="ex-desc">Hip circles in straps; parallel and laterally rotated variations</span></div>
+      <div class="ex-item"><span class="ex-name">Long Spine <span class="ex-new">NEW</span></span><span class="ex-desc">Supine in straps; full spinal articulation — legs hinge toward torso then roll up</span></div>
+      <div class="ex-item"><span class="ex-name">Knee Stretches</span><span class="ex-desc">Quadruped; spinal flexion + hip flexor mobility</span></div>
+      <div class="ex-item"><span class="ex-name">Running</span><span class="ex-desc">Alternating calf and ankle mobility</span></div>
+      <div class="ex-item"><span class="ex-name">Hip Lift</span><span class="ex-desc">Posterior chain bridging; glute activation</span></div>
+      <div class="ex-item"><span class="ex-name">Hip Rolls</span><span class="ex-desc">Sequential spinal articulation in bridge</span></div>
+      <div class="ex-item"><span class="ex-name">Single Thigh Stretch</span><span class="ex-desc">Hip flexor lengthening; lumbar stability</span></div>
+      <div class="ex-item"><span class="ex-name">Front Splits <span class="ex-new">NEW</span></span><span class="ex-desc">Standing on carriage facing footbar; hip flexor stretch + balance</span></div>
+      <div class="ex-item"><span class="ex-name">Back Splits <span class="ex-new">NEW</span></span><span class="ex-desc">Standing facing pulleys; hip extension + balance</span></div>
+      <div class="ex-item"><span class="ex-name">Side Splits</span><span class="ex-desc">Intermediate version: greater stability demand in standing</span></div>
+      <div class="ex-item"><span class="ex-name">Star Prep <span class="ex-new">NEW</span></span><span class="ex-desc">Side-lying on carriage; hip abduction + lateral trunk stability + balance</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-inter2">Footwork Focus</div>
+    <h2>Consistent Footwork Focus Points</h2>
+    <p>Same focus points as Essential apply throughout Footwork, Second Position, and Single Leg at Intermediate level.</p>
+    <div class="focus-grid">
+      <div class="focus-item">Stabilize pelvis and lumbar in neutral; avoid posterior or anterior tilt</div>
+      <div class="focus-item">Stabilize rib cage and scapulae throughout; avoid upper body tension</div>
+      <div class="focus-item">Extend legs fully (except small-range variation) without locking or overextending knees</div>
+      <div class="focus-item">Maintain alignment through center of hip, knee, and ankle joints</div>
+      <div class="focus-item">Use vasti to track patella properly (VMO often needs encouragement)</div>
+      <div class="focus-item">Both legs work equally in Footwork and Second Position</div>
+      <div class="focus-item">Maintain pelvis level; avoid rotation and lateral tilting</div>
+      <div class="focus-item">Avoid tension in upper shoulders and neck</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANATOMY -->
+<div id="int-anatomy" class="section">
+  <div class="card">
+    <div class="card-tag tag-inter">Key Muscles</div>
+    <h2>Muscles Particularly Emphasized at Intermediate</h2>
+    <div class="anatomy-grid">
+      <div class="anatomy-item"><strong>Gluteus Maximus</strong><span>Hip extensors — heavily loaded in Long Stretch, Down Stretch, and Semicircle. Prevents pelvis from sagging toward floor in plank-based exercises.</span></div>
+      <div class="anatomy-item"><strong>Adductors</strong><span>Inner thigh muscles — central to Beats (adduct to close legs) and Frog. Must work eccentrically on abduction and concentrically on adduction.</span></div>
+      <div class="anatomy-item"><strong>Lateral Rotators of Hip</strong><span>Maintain lateral rotation of legs in Beats, Frog, Stag. Prevent medial collapse of hip during straps work.</span></div>
+      <div class="anatomy-item"><strong>Erector Spinae</strong><span>Back extensors — more prominent role in Down Stretch, Chest Expansion, prone Long Box work. Must work with abdominals to stabilize thoracic spine in extension.</span></div>
+      <div class="anatomy-item"><strong>Gastrocnemius / Soleus</strong><span>Calf complex — Semicircle includes heel lift; Down Stretch and standing exercises require calf control. Running targets eccentric loading of the Achilles.</span></div>
+      <div class="anatomy-item"><strong>Psoas</strong><span>Hip flexor — maintains sitting position in rowing series. Psoas is active to prevent the torso collapsing back in Front Rowing exercises.</span></div>
+      <div class="anatomy-item"><strong>Oblique Abdominals</strong><span>More prominently recruited in rotational exercises (Twist, Coordination, Feet Pulling Straps). Resist spinal extension in Long Stretch.</span></div>
+      <div class="anatomy-item"><strong>Hip Abductors (Glute Med)</strong><span>Key stabilizers in standing exercises (Splits series, Star Prep). Prevent pelvis from dropping on the stance side.</span></div>
+      <div class="anatomy-item"><strong>Hamstrings</strong><span>Eccentrically control hip extension in Short Spine and Long Spine. Concentrically assist in hip extension phases of Semicircle and bridging.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tag tag-gold">Position-Specific Anatomy</div>
+    <h2>Body Position Focus Notes</h2>
+    <ul>
+      <li><strong>Plank / Dart position (Long Stretch):</strong> Abdominals + gluteals + scapular stabilizers all fire simultaneously to maintain one straight line from head to heel. Avoid pelvic sag or pike.</li>
+      <li><strong>Kneeling exercises (Chest Expansion):</strong> Anterior tilt is common due to shortened hip flexors — actively lengthen hip flexors to achieve neutral pelvis. Scapulae must be set before pulling straps.</li>
+      <li><strong>Semicircle:</strong> Requires sequential spinal articulation similar to Short Spine but adds the arc of hip movement. Gluteals and hamstrings must work eccentrically on descent, concentrically on press out.</li>
+      <li><strong>Long Spine:</strong> The most complex straps exercise at Intermediate. Requires full sequential spinal roll-up from tail to upper thoracic without the feet moving in space. Balance occurs on upper thoracic area.</li>
+      <li><strong>Star Prep:</strong> Side-lying balance on a moving carriage. Top hip abductors stabilize pelvis, bottom obliques prevent side-bending toward carriage.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="int-flashcards" class="section">
+  <div class="fc-header">
+    <h2>Flashcards — Intermediate</h2>
+    <div class="fc-controls-top">
+      <button class="btn" onclick="shuffleCards('int')">↺ Shuffle</button>
+      <button class="btn" onclick="resetCards('int')">Reset</button>
+      <button class="btn btn-primary" onclick="filterReview('int')">Review marked ↗</button>
+    </div>
+  </div>
+  <div class="fc-progress-wrap">
+    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
+    <div class="fc-progress-bar"><div class="fc-progress-fill" id="int-fc-progress-fill" style="width:4%"></div></div>
+  </div>
+  <div class="fc-scene" onclick="flipCard('int')">
+    <div class="fc-flip" id="int-fc-flip">
+      <div class="fc-face fc-front"><div class="fc-face-label">Question</div><div class="fc-question" id="int-fc-q">Loading...</div><div class="fc-tap-hint">tap to reveal answer</div></div>
+      <div class="fc-face fc-back"><div class="fc-face-label">Answer</div><div class="fc-answer" id="int-fc-a"></div></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-nav-btn" onclick="prevCard('int')">‹</button>
+    <span class="fc-counter-display" id="int-fc-counter">1 / 24</span>
+    <button class="fc-nav-btn" onclick="nextCard('int')">›</button>
+  </div>
+  <div class="fc-status-row">
+    <button class="fc-status-btn status-knew" onclick="markCard('int','knew')">✓ Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('int','review')">↺ Needs review</button>
+  </div>
+  <div class="fc-score">
+    <div class="score-item score-total"><span class="score-num" id="int-s-total">24</span><span class="score-label">Total cards</span></div>
+    <div class="score-item score-knew"><span class="score-num" id="int-s-knew">0</span><span class="score-label">Knew it</span></div>
+    <div class="score-item score-review"><span class="score-num" id="int-s-review">0</span><span class="score-label">To review</span></div>
+  </div>
+</div>
+
+</main>
+</div><!-- end book-intermediate -->
+
+
+<script>
+// ── Current book / section state ───────────────────────────────
+let currentBook = 'ess';
+let currentSection = 'overview';
+
+// ── Book switching ─────────────────────────────────────────────
+function switchBook(book, btn) {
+  currentBook = book === 'essential' ? 'ess' : 'int';
+  document.querySelectorAll('.book-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.book-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('book-' + book).classList.add('active');
+  document.body.className = 'book-' + book;
+  // Reset to overview
+  showSection('overview', document.querySelector('.nav-btn'));
+  // Reset all nav buttons
+  document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+}
+
+// ── Section nav ────────────────────────────────────────────────
+function showSection(id, btn) {
+  currentSection = id;
+  const prefix = currentBook;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const view = document.getElementById('book-' + (prefix==='ess' ? 'essential' : 'intermediate'));
+  view.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(prefix + '-' + id);
+  if(target) target.classList.add('active');
+}
+
+// ── Exercise search ────────────────────────────────────────────
+function filterEx(prefix) {
+  const q = document.getElementById(prefix + '-search').value.toLowerCase();
+  document.querySelectorAll('#' + prefix + '-ex-grid .ex-item').forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ── Flashcard data ─────────────────────────────────────────────
+const essCards = [
+  {q:"What are the Five Basic Principles of STOTT PILATES?", a:"1. Breathing\n2. Pelvic Placement\n3. Rib Cage Placement\n4. Scapular Movement & Stabilization\n5. Head & Cervical Placement"},
+  {q:"What is the difference between Neutral and Imprint pelvic placement?", a:"Neutral: ASIS and pubis symphysis in the same horizontal plane; normal lumbar curve present — most stable, shock-absorbing position.\n\nImprint: slight posterior pelvic tilt with light lumbar flexion; oblique abdominals contract to approximate pelvis toward rib cage."},
+  {q:"When is Imprint pelvic placement used?", a:"When neutral alignment cannot be stabilized — e.g. when the load exceeds abdominal strength, or when postural tendencies (e.g. lordosis) are present. Also used in open kinetic chain exercises until sufficient strength develops."},
+  {q:"What is the STOTT PILATES breath pattern, and what does each phase facilitate?", a:"Inhale through the nose (rib cage expands three-dimensionally) → encourages spinal extension.\nExhale through pursed lips (rib cage closes in/down) → encourages spinal flexion.\nTVA, pelvic floor, and multifidus remain engaged throughout both phases."},
+  {q:"What is the role of the Transversus Abdominis (TVA)?", a:"Deepest abdominal layer; wraps horizontally around the torso between lower ribs and pelvis. Attaches into thoracolumbar fascia at the back. Acts as a muscular girdle for the lumbo-pelvic region, providing local support throughout all exercises."},
+  {q:"What is Cranio-Vertebral Flexion and when is it used?", a:"Lengthening the back of the neck away from the shoulders and flexing the cranium on the first two cervical vertebrae. Incorporated whenever the thoracic spine moves into flexion. Ensures head, cervical, and thoracic spine remain aligned."},
+  {q:"What are the Seven Exercise Essences?", a:"Target Muscles, Stability, Mobility, Sequencing, Endurance, Balance, Coordination.\n\nEach exercise has a primary essence — knowing it ensures modifications still serve the exercise's core goal."},
+  {q:"Define Stability as an Exercise Essence.", a:"Keeping one part of the body still (or relatively still) while another part moves. Requires control and constancy of muscular contraction — especially spine stabilization during flexion, extension, rotation, and lateral flexion."},
+  {q:"Define Sequencing as an Exercise Essence.", a:"The order in which movements happen within an exercise — which joint moves first, which moves second, and where movement initiates from. Especially important for spinal articulation (whether initiation is from top or bottom of the spine)."},
+  {q:"What muscles are key for Scapular Stabilization?", a:"Serratus anterior, trapezius (upper, middle, lower fibers), rhomboids, levator scapulae, and pectoralis minor. These stabilize the scapulae on the rib cage as an anchor for the arms and support for the cervical spine."},
+  {q:"What are the four main scapular movements?", a:"Elevation (upward), depression (downward), retraction (inward toward spine), and protraction (outward away from spine). Scapulae also rotate upward or downward."},
+  {q:"What does ASIS stand for and why is it important?", a:"Anterior Superior Iliac Spine — the bony landmark at the front of each hip. In neutral pelvic placement, the ASIS and pubis symphysis lie in the same horizontal plane. Used to assess pelvic alignment throughout exercises."},
+  {q:"What is Rib Cage Placement and why does it matter?", a:"Monitoring and maintaining proper alignment of the rib cage and thoracic spine. Abdominal muscles attach to the lower ribs — if the rib cage lifts (supine) or deviates forward (sitting), thoracic alignment is compromised and the TVA may deactivate."},
+  {q:"What is the starting position for Footwork on the Reformer?", a:"Supine, pelvis and spine in neutral. Arms long by sides, palms down. Feet placed on the footbar."},
+  {q:"List the key focus points maintained during Footwork.", a:"• Stabilize pelvis/lumbar in neutral\n• Stabilize rib cage and scapulae; avoid upper body tension\n• Extend legs fully without locking or overextending knees\n• Maintain hip-knee-ankle alignment\n• Use vasti to track patella (VMO often needs encouragement)\n• Both legs work equally\n• Pelvis level — avoid rotation or lateral tilting\n• No tension in upper shoulders or neck"},
+  {q:"How do you safely get into supine position on the Reformer?", a:"Sit on carriage with legs off to one side. Reach hand nearest footbar across body to shoulder rest. Tuck opposite shoulder under arm and roll onto back, lowering head onto headrest. Bring legs up and place feet on footbar, lower arms by side."},
+  {q:"What is the Pelvic Floor and how is it engaged in STOTT PILATES?", a:"A sheet of muscle between the pubic bone, coccyx, and ischium. Co-contracts with TVA to stabilize and support the lumbo-pelvic region. Sub-maximal engagement — imagine gently contracting and lifting. More easily felt in sitting, quadruped, or supine."},
+  {q:"Why is thoracic flexion performed on an exhale?", a:"Because anatomically, the rib cage closes in and down while the spine flexes slightly during exhalation. Performing thoracic flexion on an exhale aligns movement with the body's natural mechanical action and facilitates abdominal engagement."},
+  {q:"What is the Multifidus and what is its role?", a:"A deep segmental spinal muscle. Works with the TVA to stabilize the lumbar spine locally. Simultaneous engagement of the pelvic floor and multifidus with the TVA is encouraged during both inhale and exhale."},
+  {q:"Why might foam cushions or pads be used under the head in supine exercises?", a:"If a client has kyphosis (overflexion of the thoracic spine) or a forward head posture, pads prevent the cervical spine from overextending in supine position and creating unnecessary tension."},
+  {q:"What is the difference between open and closed kinetic chain?", a:"Closed: distal end (foot/hand) is fixed on a stable surface — e.g. feet on footbar. Pelvis and spine ideally neutral.\n\nOpen: distal end is free — e.g. legs in straps. Greater stabilization demand. Imprint may be needed until abdominals are strong enough to maintain neutral."},
+  {q:"What safety rule must always be followed before getting onto the Reformer?", a:"Always ensure at least one spring is securely attached to the gearbar before mounting the Reformer."},
+  {q:"What is the role of the Serratus Anterior in scapular function?", a:"Keeps the medial border of the scapula flat against the rib cage, preventing winging. Active during overhead movements and protraction, and during thoracic flexion to discourage medial rotation of the humerus."},
+  {q:"What should be avoided when the rib cage is depressed too deeply on exhale?", a:"Excessive thoracic flexion, hyperextension of the cervical spine, and deactivation of the transversus abdominis. Overly depressing the rib cage collapses the thoracic spine and undermines the abdominal engagement the breath pattern is designed to support."}
+];
+
+const intCards = [
+  {q:"What exercises are NEW at Intermediate level that did not appear in Essential?", a:"Beats, Frog, Stag, Coordination, Back Rowing (full), Front Rowing (full), Backstroke Prep, Feet Pulling Straps, Long Stretch, Down Stretch, Up Stretch, Semicircle, Chest Expansion, Side Arm Preps Kneeling, Side Twist Kneeling, Reverse Expansion, Long Spine, Mermaid (Short Box), Lean, Twist with Round Back, Front Splits, Back Splits, Star Prep."},
+  {q:"Describe the Beats exercise — starting position, movement, and primary essence.", a:"Starting position: supine, pelvis neutral. Feet in straps, heels together, toes apart, legs laterally rotated. Inhale prepare; EXHALE extend legs and slightly abduct; INHALE quick breath, minimize carriage movement, adduct. EXHALE quick breath, keep legs straight and adduct. INHALE return. Essence: Coordination (speed and rhythm with breath) + Stability (torso)."},
+  {q:"What is the Frog exercise and what does it emphasize?", a:"Supine in straps. Ankles plantar flexed, toes pointed. Legs straight, adducted and laterally rotated. Movement: hinge legs toward torso, flex knees to form a diamond shape, extend knees reaching feet to ceiling, then abduct and hinge back on a diagonal.\n\nEssence: Mobility (hip circles in both directions) + Stability (pelvis must stay neutral throughout)."},
+  {q:"Describe the Coordination exercise.", a:"Supine in straps, knees flexed. EXHALE: pull handles to sides, extend legs. INHALE: open legs slightly. EXHALE: close legs. INHALE: flex knees and return arms.\n\nEssence: Coordination (simultaneous arm pull + leg sequence) + Sequencing. Target muscles: TVA, obliques, hip extensors and flexors."},
+  {q:"What is the Long Spine exercise and what is its primary essence?", a:"Supine in straps, legs straight, adducted, laterally rotated on a diagonal. INHALE: hinge legs toward torso, keeping sacrum on carriage. EXHALE: articulate spine from tail to upper thoracic, legs vertical, carriage fully in. INHALE: flex knees laterally, pull heels toward sit-bones. EXHALE: extend knees, heels still connected, articulate spine back to carriage.\n\nEssence: Mobility (full spinal articulation) + Sequencing (tail-to-thoracic roll-up) + Balance (on upper thoracic area)."},
+  {q:"Describe the Long Stretch exercise — starting position and focus.", a:"Standing on carriage in plank/dart position: hands on footbar, feet on shoulder rests, one straight line from head to heels. INHALE: stabilize and press carriage out as far as possible. EXHALE: pull carriage back to start.\n\nFocus: maintain body in dart position — avoid pelvis sagging toward floor or piking at hip. Scapulae must not wing or round forward. Abdominals + gluteals + scapular stabilizers all active."},
+  {q:"What is Down Stretch and what does it challenge?", a:"Standing on carriage: knees on carriage, hands on footbar, hips extending so body forms a diagonal line with lumbar in slight extension (bow/curve). INHALE: extend hips to press carriage out, chest opens to ceiling. EXHALE: flex spine from head and return.\n\nChallenge: thoracic extension without collapsing lumbar into overextension; abdominals support lumbar; avoid hips flexing or pelvis sinking forward."},
+  {q:"What is the Semicircle exercise?", a:"Supine on carriage, feet on footbar, pelvis in bridge/neutral. INHALE: extend knees to press carriage out, then lower pelvis toward carriage (into hip extension arc), then articulate spine down to neutral as carriage returns. EXHALE: articulate spine off mat (imprint to neutral) as hips extend again.\n\nEssence: Sequencing (pelvic articulation through the arc) + Mobility (hip extension and flexion range)."},
+  {q:"Describe Chest Expansion — position, movement, and focus.", a:"Kneeling on carriage, facing pulleys. Arms straight, holding straps, scapulae stabilized. INHALE: pull straps back past hips while maintaining kneeling position and tall spine. Hold briefly, look left, look right, return gaze to center. EXHALE: return arms forward slowly.\n\nFocus: thoracic extension without lumbar overextension; scapulae depress and retract; avoid anterior pelvic tilt in kneeling; cervical rotation only — not head drop."},
+  {q:"What is Star Prep and what does it challenge?", a:"Side-lying on carriage, facing pulleys. One hand on footbar or frame, other arm overhead. EXHALE: abduct top leg while pressing carriage out with bottom foot. INHALE: adduct leg and return carriage.\n\nChallenge: Balance on a moving carriage in side-lying. Top hip abductors stabilize pelvis; bottom obliques prevent lateral trunk flexion toward carriage; maintain pelvis stacked."},
+  {q:"What are Front Splits, Back Splits, and Side Splits at Intermediate level?", a:"All performed standing on the Reformer with one foot on the carriage and one on the frame (Front/Back) or carriage and platform (Side).\n\nFront Splits: facing footbar; hip flexor stretch + balance as carriage moves out and in.\nBack Splits: facing pulleys; hip extension + balance.\nSide Splits: facing side; adductor control as carriage glides out.\n\nAll challenge: pelvis square and level, spine neutral, balance on moving surface."},
+  {q:"What is the essence of the Back Rowing series?", a:"Back Rowing is performed sitting facing the pulleys. Multiple variations build from basic pull patterns into full roll-down and rowing sequences. Primary essences: Stability (torso during arm movement), Mobility (hip flexion and spinal articulation in full rowing), Sequencing (roll pelvis from front of femur — not by leaning back). Scapular stabilization is maintained with each arm movement."},
+  {q:"In the Long Box series at Intermediate, what exercises are performed prone?", a:"Arms Pulling Straps (Plow variation added at Intermediate: arms pull down toward floor, spine extends to neutral parallel to floor, then returns) + Backstroke Prep (arms circle from overhead, out to sides, and return while thoracic extends). Both target posterior chain and scapular stabilizers while spine is in a supported neutral or extended position."},
+  {q:"What is the Stag position and when is it used?", a:"Stag is an asymmetrical leg position in straps: one leg extended straight, the other with knee bent (flexed hip, flexed knee, foot toward ceiling or diagonal). Used as a variation within straps work to challenge unilateral hip control and adductor/lateral rotator strength differently in each leg. Challenges pelvic stability asymmetrically."},
+  {q:"Why is pelvis square and level especially important in standing Reformer exercises?", a:"Standing exercises (Splits series, Star Prep, Long/Down/Up Stretch) all involve a moving carriage underfoot. Any rotation or lateral tilt of the pelvis transfers to the spine and creates instability. Gluteus medius on the stance side must work to prevent the pelvis from dropping. The abdominals help prevent the lumbar spine from over-extending as the carriage moves."},
+  {q:"What is the Backstroke Prep on the Long Box?", a:"Prone on the long box, head toward pulleys. Arms reach forward holding ropes. INHALE: initiate by sliding scapulae down, pull arms down and back past hips, extending thoracic spine to neutral parallel to floor. EXHALE: reach arms forward and allow spine to lengthen back over box. Targets: posterior chain (rhomboids, mid-trapezius, latissimus), thoracic extensors, scapular stabilizers."},
+  {q:"How does the Stomach Massage series differ at Intermediate vs Essential level?", a:"Essential includes Round Back and Straight Back. Intermediate adds Reach (arms extend forward past footbar during leg extension) and Twist variations (rotational oblique emphasis added while maintaining seated position). The sitting position and footbar placement are the same, but coordination demands and rotational load are greater."},
+  {q:"What is the primary focus of Reverse Expansion (kneeling)?", a:"Kneeling on carriage, facing pulleys. Push straps forward (arms extend in front of body) while maintaining tall spine and neutral pelvis. Emphasizes: scapular protraction and stabilization, thoracic extension on return, and the challenge of maintaining kneeling stability while arms move forward against spring resistance."},
+  {q:"What is Up Stretch and how does it sequence?", a:"Starting in a pike position — standing on carriage, hands on footbar, hips high, spine flexed. INHALE: extend hips to press carriage out, forming a long diagonal line. EXHALE: flex spine from head, rolling through thoracic and lumbar to return to pike.\n\nSequencing is the key essence: return must initiate from the crown of the head and roll through the spine — not from the hips."},
+  {q:"What makes the Elephant exercise different at Intermediate compared to Essential?", a:"At Intermediate, the back is held straighter (closer to neutral/flat back rather than the rounded Essential version), demanding greater hamstring flexibility and more active abdominal support to prevent lumbar extension. Movement originates from the hip joint more purely, with the spine maintaining length. Greater range of hip flexion is required."},
+  {q:"Describe the seated position for Rowing exercises and common cueing errors.", a:"Seated on carriage or box, pelvis neutral, spine long. Weight on front of sit-bones. For round-back rowing variations, lumbar is in slight flexion, thoracic lengthened. Common error: initiating forward roll by leaning back from the shoulders rather than by rolling the pelvis away from the front of the femur. Another error: overly flexing the cervical spine and jamming the chin to the chest."},
+  {q:"In Beats, what are the two available modifications?", a:"1. With Three Beats: open and close legs 3 times quickly on the exhale — increases muscular endurance demand.\n2. Parallel: maintain parallel alignment throughout instead of lateral rotation — simplifies coordination for those who struggle with the rotation component."},
+  {q:"What muscles are target muscles in the Long Stretch exercise?", a:"TVA and obliques (compress abdomen and stabilize lumbo-pelvic region), gluteus maximus (maintains hip extension/dart position and prevents pelvis sag), scapular stabilizers (serratus anterior, trapezius, rhomboids — prevent winging and maintain shoulder position), hip extensors and adductors (maintain leg alignment)."},
+  {q:"Why is the Frog exercise performed in both directions?", a:"The Frog circles the legs through a full arc — out along the diagonal, feet to ceiling, knees out to sides (diamond), then close. Reversing the direction (starting with the open diamond phase) ensures balanced development of hip mobility and challenges the adductors and lateral rotators in different loading positions. Both directions share the same pelvic stability requirement."}
+];
+
+// ── Flashcard state (one per book) ────────────────────────────
+const state = {
+  ess: { all: essCards, deck: essCards, order: essCards.map((_,i)=>i), idx:0, status:{} },
+  int: { all: intCards, deck: intCards, order: intCards.map((_,i)=>i), idx:0, status:{} }
+};
+
+function render(p) {
+  const s = state[p];
+  const card = s.deck[s.order[s.idx]];
+  document.getElementById(p+'-fc-q').textContent = card.q;
+  document.getElementById(p+'-fc-a').textContent = card.a;
+  document.getElementById(p+'-fc-flip').classList.remove('flipped');
+  const total = s.order.length;
+  const curr = s.idx + 1;
+  document.getElementById(p+'-fc-progress-text').textContent = 'Card '+curr+' of '+total;
+  document.getElementById(p+'-fc-counter').textContent = curr+' / '+total;
+  document.getElementById(p+'-fc-progress-fill').style.width = Math.round((curr/total)*100)+'%';
+  updateScore(p);
+}
+
+function updateScore(p) {
+  const s = state[p];
+  const knew = Object.values(s.status).filter(v=>v==='knew').length;
+  const rev = Object.values(s.status).filter(v=>v==='review').length;
+  document.getElementById(p+'-s-total').textContent = s.all.length;
+  document.getElementById(p+'-s-knew').textContent = knew;
+  document.getElementById(p+'-s-review').textContent = rev;
+  document.getElementById(p+'-fc-score-text').textContent = '✓ '+knew+' knew it · ↺ '+rev+' to review';
+}
+
+function flipCard(p) { document.getElementById(p+'-fc-flip').classList.toggle('flipped'); }
+function nextCard(p) { const s=state[p]; s.idx=(s.idx+1)%s.order.length; render(p); }
+function prevCard(p) { const s=state[p]; s.idx=(s.idx-1+s.order.length)%s.order.length; render(p); }
+
+function markCard(p, type) {
+  const s = state[p];
+  s.status[s.order[s.idx]] = type;
+  updateScore(p);
+  if(s.idx < s.order.length - 1) setTimeout(()=>nextCard(p), 300);
+}
+
+function shuffleCards(p) {
+  const s = state[p];
+  s.deck = [...s.all];
+  s.order = s.deck.map((_,i)=>i);
+  for(let i=s.order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [s.order[i],s.order[j]]=[s.order[j],s.order[i]]; }
+  s.idx = 0;
+  render(p);
+}
+
+function resetCards(p) {
+  const s = state[p];
+  s.status = {};
+  s.deck = [...s.all];
+  s.order = s.deck.map((_,i)=>i);
+  s.idx = 0;
+  render(p);
+}
+
+function filterReview(p) {
+  const s = state[p];
+  const ri = Object.entries(s.status).filter(([,v])=>v==='review').map(([k])=>parseInt(k));
+  if(ri.length===0){ alert('No cards marked for review yet! Use "↺ Needs review" as you go.'); return; }
+  s.deck = s.all;
+  s.order = ri;
+  s.idx = 0;
+  render(p);
+}
+
+// ── Keyboard shortcuts ────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const p = currentBook;
+  const fcSection = document.getElementById(p+'-flashcards');
+  if(!fcSection || !fcSection.classList.contains('active')) return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') nextCard(p);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') prevCard(p);
+  if(e.key===' '){ e.preventDefault(); flipCard(p); }
+  if(e.key==='k'||e.key==='K') markCard(p,'knew');
+  if(e.key==='r'||e.key==='R') markCard(p,'review');
+});
+
+// ── Init ──────────────────────────────────────────────────────
+render('ess');
+render('int');
+</script>
+</body>
+</html>
