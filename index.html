@@ -3,29 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada's STOTT Reformer Studies</title>
+<title>Ada's Reformer Studies 🌸</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sage: #5a7a68;
-  --sage-light: #8aad96;
-  --sage-pale: #e8f0eb;
-  --sage-deep: #3b5448;
-  --cream: #f7f4ef;
-  --warm-white: #fdfcfa;
-  --charcoal: #2a2825;
-  --stone: #7a7670;
-  --stone-light: #c4bfb8;
-  --stone-pale: #eeece8;
-  --accent: #c4845a;
-  --accent-pale: #f5e8df;
-  --gold: #b89a6a;
-  --gold-pale: #f2ead8;
-  --inter: #7a6a9a;
-  --inter-light: #a898c4;
-  --inter-pale: #ece8f5;
-  --inter-deep: #4a3a6a;
-}
+    --bg: #fdf6f9;
+    --bg2: #fef0f5;
+    --surface: #ffffff;
+    --surface2: #fce8f1;
+    --border: #f0c8db;
+    --accent: #e8789a;
+    --accent2: #f4a7c0;
+    --accent3: #c95478;
+    --text: #3d1f2d;
+    --text2: #7a4060;
+    --text3: #b07090;
+    --tag-bg: #fce8f1;
+    --tag-color: #c95478;
+    --nav-bg: #3d1f2d;
+    --nav-text: #f9e0eb;
+    --tab-active: #e8789a;
+    --card-border: #f0c8db;
+    --principle-num-bg: #fce8f1;
+    --principle-num-color: #c95478;
+    --fc-front: #fce8f1;
+    --fc-back: #3d1f2d;
+    --knew-color: #27ae60;
+    --review-color: #e8789a;
+  }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; font-size: 15px; line-height: 1.7; }
 
@@ -263,8 +268,8 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 
 <header>
   <div class="header-label">Ada's Study Guide Â· STOTT PILATES</div>
-  <h1>Reformer <em>Studies</em></h1>
-  <p>Essential &amp; Intermediate Reformer â notes, essences &amp; flashcards</p>
+  <h1>Ada's Reformer Studies 🌸</h1>
+  <p>Essential · Intermediate · Muscles — notes &amp; flashcards</p>
 </header>
 
 <!-- Book switcher -->
@@ -842,6 +847,79 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 </div><!-- end book-intermediate -->
 
 
+
+  <!-- BOOK 3: The Muscles -->
+  <div id="book-mus" class="book-section" style="display:none">
+    <div class="tab-bar">
+      <button class="tab-btn active" id="mus-tab-overview" onclick="switchTab('mus','overview')">Overview</button>
+      <button class="tab-btn" id="mus-tab-flashcards" onclick="switchTab('mus','flashcards')">Flashcards</button>
+    </div>
+
+    <!-- Overview Tab -->
+    <div id="mus-overview" class="section active">
+      <div class="card">
+        <div class="card-label">THE MUSCULAR SYSTEM</div>
+        <h2>Muscles 💪🏾</h2>
+        <p>A reference guide to the muscles of the human body as they apply to STOTT PILATES training. Use this alongside the Reformer studies to understand which muscles are targeted, stabilized, and mobilized in each exercise.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">MUSCLE GROUPS COVERED</div>
+        <h3>Scapular Muscles</h3>
+        <p>Trapezius (upper, middle, lower), Levator Scapulae, Rhomboid Major &amp; Minor, Serratus Anterior, Pectoralis Minor, Subclavius</p>
+        <h3>Shoulder (Glenohumeral) Muscles</h3>
+        <p>Deltoid (anterior, middle, posterior), Pectoralis Major (sternal &amp; clavicular), Coracobrachialis, Latissimus Dorsi, Teres Major, Rotator Cuff (Supraspinatus, Infraspinatus, Teres Minor, Subscapularis)</p>
+        <h3>Elbow Muscles</h3>
+        <p>Biceps Brachii, Brachialis, Brachioradialis, Triceps Brachii, Anconeus, Supinator, Pronator Teres</p>
+        <h3>Spinal Muscles</h3>
+        <p>Semispinalis (Thoracis, Cervicis, Capitis), Erector Spinae — Iliocostalis (Lumborum, Thoracis, Cervicis), Longissimus (Thoracis, Cervicis, Capitis), Spinalis (Thoracis, Cervicis), Intertransversarii, Interspinales, Rotatores (Longus &amp; Brevis), Multifidus</p>
+        <h3>Neck Muscles</h3>
+        <p>Scaleni (Anterior, Medius, Posterior), Sternocleidomastoid</p>
+        <h3>Abdominal &amp; Respiratory Muscles</h3>
+        <p>Rectus Abdominis, External &amp; Internal Abdominal Oblique, Transversus Abdominis, Pyramidalis, Diaphragm, External &amp; Internal Intercostals, Levatores Costarum, Serratus Posterior (Superior &amp; Inferior)</p>
+        <h3>Hip Muscles</h3>
+        <p>Psoas Major, Iliacus, Gluteus Maximus, Gluteus Medius, Gluteus Minimus, Tensor Fasciae Latae, Pectineus, Adductors (Brevis, Longus, Magnus), Gracilis, 6 Deep Lateral Rotators (Piriformis, Obturator Externus &amp; Internus, Gemellus Superior &amp; Inferior, Quadratus Femoris), Sartorius</p>
+        <h3>Knee &amp; Lower Leg Muscles</h3>
+        <p>Hamstrings (Biceps Femoris, Semitendinosus, Semimembranosus), Quadriceps (Rectus Femoris, Vastus Lateralis, Vastus Medialis, Vastus Intermedius), Popliteus, Soleus</p>
+        <p style="margin-top:1.5rem;color:var(--text3);font-style:italic;">Use the Flashcards tab to study all 99 muscles and their actions.</p>
+      </div>
+    </div>
+
+    <!-- Flashcards Tab -->
+    <div id="mus-flashcards" class="section" style="display:none">
+      <div class="card">
+        <div class="card-label">FLASHCARDS</div>
+        <h2>Muscle Actions — 99 Cards</h2>
+        <p>All muscles from the STOTT PILATES Muscular System Flash Pak by Bryan Edwards. Tap a card to reveal the action.</p>
+      </div>
+      <div class="fc-controls">
+        <button onclick="musFC('shuffle')" class="btn-secondary">&#8635; Shuffle</button>
+        <button onclick="musFC('reset')" class="btn-secondary">Reset</button>
+        <button onclick="musFC('review')" class="btn-secondary">Review marked &#8599;</button>
+      </div>
+      <div class="fc-progress-bar"><div class="fc-progress-fill" id="mus-fc-progress-fill"></div></div>
+      <div class="flashcard" id="mus-fc-flip" onclick="musFlip()">
+        <div class="fc-inner" id="mus-fc-inner">
+          <div class="fc-front"><p id="mus-fc-q"></p></div>
+          <div class="fc-back"><p id="mus-fc-a"></p></div>
+        </div>
+      </div>
+      <div class="fc-nav">
+        <button onclick="musPrev()" class="btn-nav">&lsaquo;</button>
+        <span id="mus-fc-counter">1 / 99</span>
+        <button onclick="musNext()" class="btn-nav">&rsaquo;</button>
+      </div>
+      <div class="fc-actions">
+        <button onclick="musKnew()" class="btn-knew">✓ Knew it</button>
+        <button onclick="musReview()" class="btn-review">&#8635; Needs review</button>
+      </div>
+      <div class="fc-stats">
+        <span id="mus-s-total">99</span> Total &nbsp;|&nbsp;
+        <span id="mus-s-knew">0</span> Knew it &nbsp;|&nbsp;
+        <span id="mus-s-review">0</span> To review
+      </div>
+    </div>
+  </div>
+
 <script>
 // ââ Current book / section state âââââââââââââââââââââââââââââââ
 let currentBook = 'ess';
@@ -1020,6 +1098,57 @@ document.addEventListener('keydown', e => {
 // ââ Init ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 render('ess');
 render('int');
+
+// ---- BOOK 3: Muscles Flashcards ----
+const musAllCards = [["Trapezius upper division","Elevates the scapula as in shrugging the shoulders."],["Trapezius middle division","Retracts. Aids in elevation of scapula."],["Trapezius lower division","Depresses. Retracts. Rotates the scapula upwards."],["Levator Scapulae","Elevates. Rotates the scapula downwards."],["Rhomboid Major","Retracts. Elevates the scapula."],["Rhomboid Minor","Retracts. Elevates. Downward rotation of scapula."],["Serratus Anterior","Protracts. Upward rotation."],["Pectoralis Minor","Depresses. Downward rotation of scapula."],["Subclavius","Depresses clavicle. Pulls it inferiorly and anteriorly."],["Deltoid Anterior Division","Abduction. Horizontal flexion. Medial rotation of humerus at the shoulder."],["Deltoid Middle Division","Abduction of the humerus at the shoulder."],["Deltoid Posterior Division","Abduction. Horizontal extension. Lateral rotation of the humerus at the shoulder."],["Pectoralis Major Sternal Division","Flexion. Adduction. Medial rotation. Horizontal flexion of humerus at the shoulder."],["Pectoralis Major Clavicular Division","Flexion. Adduction. Horizontal flexion and Medial rotation of humerus at the shoulder."],["Coracobrachialis","Horizontal flexion and adduction of the humerus at the shoulder."],["Latissimus Dorsi","On humerus: Extends. Retracts. Medially rotates the humerus at the shoulder. On scapula: Retracts. Rotates scapula downwards. Assists in forced expiration."],["Teres Major","Adducts. Medially rotates humerus at the shoulder. Extends the shoulder joint."],["Supraspinatus (Rotator cuff)","Abduction of humerus at the shoulder joint. Stabilisation of the glenohumeral joint."],["Infraspinatus (Rotator cuff)","Lateral rotation of humerus at the shoulder. Stabilisation of the glenohumeral joint."],["Teres Minor (Rotator cuff)","Lateral rotation of humerus at the shoulder. Stabilisation of the head of the humerus."],["Subscapularis (Rotator cuff)","Medial rotation of the humerus at the shoulder. Stabilisation of the glenohumeral joint."],["Triceps Brachii","Extends forearm at the elbow."],["Biceps Brachii","Flexes the forearm at the elbow."],["Anconeus","Extension and pronation of the forearm at the elbow."],["Brachioradialis","Flexion of the forearm at the elbow. Pronates and supinates to midposition."],["Brachialis","Flexes forearm at the elbow."],["Supinator","Supinates the forearm."],["Pronator Teres","Pronation and flexion of forearm at elbow."],["Semispinalis Thoracis","Extends the spine and rotates it towards the opposite side."],["Semispinalis Cervicis","Acting bilaterally: extension of the cervical spine. Acting unilaterally: lateral flexion of the head and neck and rotation to the opposite side."],["Semispinalis Capitis","Extension and lateral flexion of the head and neck and rotation to the opposite side."],["Iliocostalis Lumborum","Acting bilaterally: extension of the spine. Acting unilaterally: laterally flexes the spine."],["Iliocostalis Thoracis","Acting bilaterally: extension of the spine. Acting unilaterally: laterally flexes the spine."],["Iliocostalis Cervicis","Acting bilaterally: extension of the spine. Acting unilaterally: laterally flexes the vertebral column."],["Longissimus Thoracis","Acting bilaterally: extension of vertebral column; draws ribs down. Acting unilaterally: laterally flexes the vertebral column."],["Longissimus Cervicis","Acting bilaterally: extension of the neck. Acting unilaterally: laterally flexes the neck."],["Longissimus Capitis","Acting bilaterally: extends the head. Acting unilaterally: laterally flexes and rotates the head to the same side."],["Spinalis Thoracis","Acting bilaterally: extension of the spine. Acting unilaterally: lateral flexion of the spine."],["Spinalis Cervicis","Acting bilaterally: extension of the spine. Acting unilaterally: lateral flexion of the spine."],["Spinalis Capitis","Acting bilaterally: extension of the head. Acting unilaterally: lateral flexion of the head."],["Intertransversarii","Acting unilaterally: lateral flexion of the spine."],["Interspinales","Extension of the spine."],["Rotatores Longus","Acting unilaterally: rotation of the spine to the opposite side. Acting bilaterally: extension of the spine."],["Rotatores Brevis","Acting unilaterally: rotation of the spine to the opposite side. Acting bilaterally: extension of the spine."],["Multifidus","Acting unilaterally: lateral flexion and rotation to the opposite side. Acting bilaterally: extension of the spine."],["Scalenus Anterior","Acting unilaterally: flexes and rotates cervical spine to the opposite side. Acting bilaterally: flexes the neck and raises the first rib."],["Scalenus Medius","Acting unilaterally: laterally flexes and rotates cervical spine to the opposite side. Acting bilaterally: flexes the neck and raises the first rib."],["Scalenus Posterior","Acting unilaterally: laterally flexes and rotates cervical spine to the opposite side. Acting bilaterally: flexes the neck and raises the second rib."],["Sternocleidomastoid","Acting unilaterally: draws the head towards the ipsilateral shoulder and rotates the head to the opposite side. Acting bilaterally: flexes the head."],["Rectus Abdominis","Flexion and lateral flexion of the trunk. Supports organs anteriorly and gives anterior support to lumbar spine. With gluteus maximus and hamstrings, keeps pelvis from going into anterior tilt, decreasing lumbar lordosis."],["External Abdominal Oblique","Acting unilaterally: rotates the trunk to the opposite side and flexes it laterally. Acting bilaterally: flexes the trunk anteriorly, supports and compresses abdominal viscera, gives anterior stabilisation to pelvis. Assists in forced expiration."],["Internal Abdominal Oblique (anterior)","Acting unilaterally: rotates the trunk to the same side and laterally flexes the trunk. Acting bilaterally: flexes the vertebral column, approximating the anterior thorax and pelvis. Supports and compresses abdominal viscera. Assists in forced expiration."],["Internal Abdominal Oblique","Acting unilaterally: approximates thorax and pelvis laterally. Contributes to rotation of the trunk toward the same side. Acting bilaterally: posterior pelvic tilt and lumbar flexion. Assists in forced expiration."],["Diaphragm","Principal muscle of respiration. Draws the central tendon downwards during quiet inspiration, pressing against the abdominal viscera."],["External Intercostals","Elevates ribs during inspiration."],["Internal Intercostals","Depresses the ribs during expiration."],["Levatores Costarum Longi","Elevates the ribs during inspiration. Extends the vertebral column, bends it laterally and rotates it slightly towards the opposite side."],["Levatores Costarum Breves","Elevates the ribs during inspiration. Extends the vertebral column, bends it laterally and rotates it slightly towards the opposite side."],["Serratus Posterior Superior","Elevates the ribs and is a muscle of inspiration."],["Serratus Posterior Inferior","Counteracts the pull of the diaphragm by drawing the ribs posterior and inferior. Aids in respiration."],["Transversus Abdominis","Constricts abdominal contents. Assists in forced expiration."],["Pyramidalis","Compresses the abdomen, supports abdominal viscera, tenses the linea alba and is active in forced expiration."],["Psoas Major","Flexion of the thigh at the hip. Minimal action in lateral rotation of the thigh."],["Iliacus","Flexes thigh at the hip. Minimal action in lateral rotation of the thigh."],["Gluteus Maximus","Extends thigh at the hip. Assists in laterally rotating the thigh. The upper 2/3 abducts; the lower 1/3 is inactive as abductor or adductor in standing."],["Gluteus Medius","Abducts femur at the hip and rotates it medially. With gluteus minimus is major lateral pelvic stabiliser. Aids in early activity of hip flexion."],["Gluteus Minimus","Abducts femur at the hip and rotates it medially. Lateral pelvic stabiliser. Aids in early activity of hip flexion."],["Tensor Fasciae Latae","Thigh flexion at the hip, abduction, and medial rotation. Stabilises the knee laterally. Tenses the iliotibial tract."],["Pectineus","Adduction of thigh at hip. Assistance in thigh flexion and medial rotation at the hip."],["Adductor Brevis","Adduction of thigh at the hip. Assistance in thigh flexion and medial rotation at the hip."],["Adductor Longus","Adducts thigh at the hip. Assists in thigh flexion and medial rotation at the hip."],["Adductor Magnus","Adduction of thigh at the hip. Fibers from ischium aid in hip extension; fibers from pubis ramus aid in hip flexion. Assistance in medial rotation."],["Piriformis","1 of 6 deep lateral rotators of the femur. Rotates thigh laterally and abducts the flexed thigh at the hip."],["Obturator Externus","1 of 6 deep lateral rotators of the femur. Lateral rotation of femur at the hip."],["Obturator Internus","1 of 6 deep lateral rotators of the femur. Laterally rotates the extended thigh at the hip. Can produce horizontal extension. Abducts the flexed thigh."],["Gemellus Superior","1 of 6 deep lateral rotators of the femur. Laterally rotates the extended thigh at the hip. Can produce horizontal extension. Abducts the flexed thigh."],["Gemellus Inferior","1 of 6 deep lateral rotators of the femur. Laterally rotates the extended thigh at the hip. Can produce horizontal extension. Abducts the flexed thigh."],["Quadratus Femoris","1 of 6 deep lateral rotators of the femur. Lateral rotation of the femur at the hip."],["Sartorius","Flexes, laterally rotates and abducts the thigh. Flexes and assists in medial rotation of the leg."],["Gracilis","Adducts and medially rotates thigh. Flexes and medially rotates leg."],["Biceps Femoris (Lateral Hamstring)","Flexion and lateral rotation of the leg at the knee. Extends, adducts and laterally rotates the thigh at the hip."],["Semitendinosus (Medial Hamstring)","Flexes and medially rotates the leg at the knee. Extends, adducts and medially rotates the thigh at the hip."],["Semimembranosus (Medial Hamstring)","Flexes and medially rotates the leg at the knee. Extends, adducts and medially rotates the thigh at the hip."],["Rectus Femoris (Quadriceps)","Extension of leg at the knee. Flexion of thigh at the hip."],["Vastus Lateralis (Quadriceps)","Extends the leg at the knee and draws the patella laterally."],["Vastus Medialis (Quadriceps)","Extends the leg at the knee and draws the patella medially."],["Vastus Intermedius (Quadriceps)","Extends the leg at the knee."],["Popliteus","Rotates the tibia medially on the femur (or femur laterally on tibia). Withdraws the meniscus during flexion. Provides rotary stability to the femur on the tibia. Brings the knee out of full extension. Helps with posterior stability of the knee."],["Soleus","Plantar flexion and inversion of the foot at the ankle."]];
+let musState = { deck: musAllCards.map((_,i)=>i), idx: 0, flipped: false, status: {}, all: musAllCards.map((_,i)=>i) };
+
+function musRender() {
+  const s = musState;
+  const i = s.deck[s.idx];
+  document.getElementById('mus-fc-q').textContent = musAllCards[i][0];
+  document.getElementById('mus-fc-a').textContent = musAllCards[i][1];
+  const inner = document.getElementById('mus-fc-inner');
+  inner.classList.toggle('flipped', s.flipped);
+  document.getElementById('mus-fc-counter').textContent = (s.idx+1)+' / '+s.deck.length;
+  const fill = document.getElementById('mus-fc-progress-fill');
+  if (fill) fill.style.width = ((s.idx+1)/s.deck.length*100)+'%';
+  const knew = Object.values(s.status).filter(v=>v==='knew').length;
+  const rev = Object.values(s.status).filter(v=>v==='review').length;
+  document.getElementById('mus-s-total').textContent = s.deck.length;
+  document.getElementById('mus-s-knew').textContent = knew;
+  document.getElementById('mus-s-review').textContent = rev;
+}
+function musFlip() { musState.flipped = !musState.flipped; musRender(); }
+function musNext() { if(musState.idx < musState.deck.length-1){musState.idx++;musState.flipped=false;musRender();} }
+function musPrev() { if(musState.idx > 0){musState.idx--;musState.flipped=false;musRender();} }
+function musKnew() { musState.status[musState.deck[musState.idx]]='knew'; musNext(); }
+function musReview() { musState.status[musState.deck[musState.idx]]='review'; musNext(); }
+function musFC(action) {
+  if(action==='shuffle'){musState.deck=musState.deck.map(v=>({v,s:Math.random()})).sort((a,b)=>a.s-b.s).map(o=>o.v);musState.idx=0;musState.flipped=false;}
+  else if(action==='reset'){musState.deck=musAllCards.map((_,i)=>i);musState.idx=0;musState.flipped=false;musState.status={};}
+  else if(action==='review'){const ri=Object.entries(musState.status).filter(([,v])=>v==='review').map(([k])=>parseInt(k));if(ri.length===0){alert('No cards marked for review yet!');return;}musState.deck=ri;musState.idx=0;musState.flipped=false;}
+  musRender();
+}
+function switchBook(book) {
+  document.querySelectorAll('.book-section').forEach(b=>b.style.display='none');
+  document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('book-'+book);
+  if(el) el.style.display='block';
+  const btn = document.getElementById('nav-'+book);
+  if(btn) btn.classList.add('active');
+  if(book==='mus') { musRender(); }
+}
+function switchTab(book, tab) {
+  document.querySelectorAll('#book-'+book+' .section').forEach(s=>{s.classList.remove('active');s.style.display='none';});
+  document.querySelectorAll('#book-'+book+' .tab-btn').forEach(b=>b.classList.remove('active'));
+  const sec = document.getElementById(book+'-'+tab);
+  if(sec){sec.classList.add('active');sec.style.display='block';}
+  const btn = document.getElementById(book+'-tab-'+tab);
+  if(btn) btn.classList.add('active');
+  if(book==='mus' && tab==='flashcards') musRender();
+}
+
 </script>
 </body>
 </html>
