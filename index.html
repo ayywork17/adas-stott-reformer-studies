@@ -1457,9 +1457,10 @@ function showMuscSection(id, btn) {
 </script>
 
 <script>
-// Override switchBook to fix book switching
+// Override book switching functions to fix tab navigation
 window.switchBook = function(book, btn) {
-  window.currentBook = book; try { currentBook = book; } catch(e) {}
+  currentBook = book;
+  window.currentBook = book;
   document.querySelectorAll('.book-view').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('.book-btn').forEach(function(b) { b.classList.remove('active'); });
   var bookEl = document.getElementById('book-' + book);
@@ -1471,16 +1472,41 @@ window.switchBook = function(book, btn) {
     if (typeof showMuscSection === 'function') showMuscSection('mus-overview', document.querySelector('#book-muscles .nav-btn'));
   } else {
     if (nav) nav.style.display = '';
-    if (typeof render === 'function') render(book === 'essential' ? 'ess' : 'int');
+    // Show overview section by default
+    var prefix = book === 'essential' ? 'ess' : 'int';
+    document.querySelectorAll('#book-' + book + ' .section').forEach(function(s) { s.classList.remove('active'); });
+    var ovEl = document.getElementById(prefix + '-overview');
+    if (ovEl) ovEl.classList.add('active');
+    document.querySelectorAll('#main-nav .nav-btn').forEach(function(b) { b.classList.remove('active'); });
+    var firstBtn = document.querySelector('#main-nav .nav-btn');
+    if (firstBtn) firstBtn.classList.add('active');
+    if (typeof render === 'function') render(prefix);
   }
 };
-// Fix initial state on load
+
+window.showSection = function(section, btn) {
+  var prefix = (typeof currentBook !== 'undefined' && currentBook !== '') ? (currentBook === 'essential' ? 'ess' : 'int') : 'ess';
+  var activeBook = document.querySelector('.book-view.active');
+  if (activeBook) {
+    if (activeBook.id === 'book-essential') prefix = 'ess';
+    else if (activeBook.id === 'book-intermediate') prefix = 'int';
+  }
+  document.querySelectorAll('#book-' + (prefix === 'ess' ? 'essential' : 'intermediate') + ' .section').forEach(function(s) { s.classList.remove('active'); });
+  var el = document.getElementById(prefix + '-' + section);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('#main-nav .nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+};
+
+// Fix initial state
 (function() {
   document.querySelectorAll('.book-view').forEach(function(b) { b.classList.remove('active'); });
   var ess = document.getElementById('book-essential');
   if (ess) ess.classList.add('active');
   var nav = document.getElementById('main-nav');
   if (nav) nav.style.display = '';
+  currentBook = 'essential';
+  window.currentBook = 'essential';
 })();
 </script>
 </body>
