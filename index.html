@@ -252,6 +252,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   .book-btn { padding:0.75rem 1rem; }
 }
 </style>
+<!-- updated: 1779690714523 -->
 </head>
 <body class="book-essential">
 
@@ -1148,13 +1149,12 @@ let currentSection = 'overview';
 // ── Book switching ─────────────────────────────────────────────
 function switchBook(book,btn){
   currentBook=book;
-  // Hide all books (both class names used)
-  document.querySelectorAll('.book-view, .book').forEach(b=>b.style.display='none');
-  document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
-  const bookEl=document.getElementById('book-'+book);
+  document.querySelectorAll('.book-view,.book').forEach(function(b){b.style.display='none';});
+  document.querySelectorAll('.book-btn').forEach(function(b){b.classList.remove('active');});
+  var bookEl=document.getElementById('book-'+book);
   if(bookEl) bookEl.style.display='block';
   if(btn) btn.classList.add('active');
-  const nav=document.getElementById('main-nav');
+  var nav=document.getElementById('main-nav');
   if(book==='muscles'){
     if(nav) nav.style.display='none';
   } else {
@@ -1354,15 +1354,7 @@ function musFC(action) {
   else if(action==='review'){const ri=Object.entries(musState.status).filter(([,v])=>v==='review').map(([k])=>parseInt(k));if(ri.length===0){alert('No cards marked for review yet!');return;}musState.deck=ri;musState.idx=0;musState.flipped=false;}
   musRender();
 }
-function switchBook(book) {
-  document.querySelectorAll('.book-section').forEach(b=>b.style.display='none');
-  document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
-  const el = document.getElementById('book-'+book);
-  if(el) el.style.display='block';
-  const btn = document.getElementById('nav-'+book);
-  if(btn) btn.classList.add('active');
-  if(book==='mus') { musRender(); }
-}
+
 function switchTab(book, tab) {
   document.querySelectorAll('#book-'+book+' .section').forEach(s=>{s.classList.remove('active');s.style.display='none';});
   document.querySelectorAll('#book-'+book+' .tab-btn').forEach(b=>b.classList.remove('active'));
