@@ -217,11 +217,11 @@ body.book-intermediate .fc-back { background:var(--inter-deep); }
 body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 .fc-back .fc-face-label { color:rgba(255,255,255,0.6); }
 .fc-question { font-family:'DM Serif Display',serif; font-size:1.2rem; font-weight:400; color:var(--charcoal); line-height:1.45; max-width:520px; }
-.fc-answer { font-size:14px; color:rgba(247,244,239,0.9); line-height:1.7; max-width:520px; white-space:pre-line; }
+.fc-answer { font-size:14px; color:var(--charcoal); line-height:1.7; max-width:520px; white-space:pre-line; }
 .fc-tap-hint { position:absolute; bottom:1rem; font-size:11px; color:var(--stone-light); letter-spacing:0.05em; }
 .fc-nav { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:2rem; }
 .fc-nav-btn { width:44px; height:44px; border-radius:50%; border:1px solid var(--stone-pale); background:var(--warm-white); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; color:var(--charcoal); font-family:'DM Sans',sans-serif; }
-.fc-nav-btn:hover { background:var(--stone-pale); }
+.fc-nav-btn:first-child::after { content: "\2190"; } .fc-nav-btn:last-child::after { content: "\2192"; } .fc-nav-btn:hover { background:var(--stone-pale); }
 .fc-counter-display { font-size:14px; color:var(--stone); min-width:80px; text-align:center; font-variant-numeric:tabular-nums; }
 .fc-status-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
 .fc-status-btn { font-family:'DM Sans',sans-serif; font-size:12px; padding:6px 14px; border-radius:100px; border:1px solid; cursor:pointer; transition:all 0.2s; font-weight:400; }
