@@ -176,8 +176,8 @@ body.book-intermediate .focus-item { background:var(--inter-pale); color:var(--i
 .compare-col ul { list-style:none; padding:0; }
 .compare-col ul li { font-size:12px; color:var(--stone); padding:0.25rem 0 0.25rem 1rem; position:relative; border-bottom:1px solid var(--stone-pale); }
 .compare-col ul li:last-child { border-bottom:none; }
-.compare-col.ess li::before { content:'&middot;'; position:absolute; left:0; color:var(--sage); }
-.compare-col.int li::before { content:'&middot;'; position:absolute; left:0; color:var(--inter); }
+.compare-col.ess li::before { content:' · '; position:absolute; left:0; color:var(--sage); }
+.compare-col.int li::before { content:' · '; position:absolute; left:0; color:var(--inter); }
 @media(max-width:580px){ .compare-grid { grid-template-columns:1fr; } }
 
 /* ── SEARCH ── */
@@ -534,7 +534,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">✓ 0 knew it &middot; ↺ 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="ess-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('ess')">
@@ -806,7 +806,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">✓ 0 knew it &middot; ↺ 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="int-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('int')">
@@ -1267,7 +1267,7 @@ function updateScore(p) {
   document.getElementById(p+'-s-total').textContent = s.all.length;
   document.getElementById(p+'-s-knew').textContent = knew;
   document.getElementById(p+'-s-review').textContent = rev;
-  document.getElementById(p+'-fc-score-text').textContent = '✓ '+knew+' knew it &middot; ↺ '+rev+' to review';
+  document.getElementById(p+'-fc-score-text').textContent = '✓ '+knew+' knew it · ↺ '+rev+' to review';
 }
 
 function flipCard(p) { document.getElementById(p+'-fc-flip').classList.toggle('flipped'); }
