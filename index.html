@@ -23,7 +23,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; font-size: 15px; line-height: 1.7; }
 
-/* ââ TOP HEADER ââ */
+/* ── TOP HEADER ── */
 header {
   background: var(--charcoal);
   color: var(--cream);
@@ -37,7 +37,7 @@ header h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,5vw,2.8
 header h1 em { color:var(--sage-light); font-style:italic; }
 header p { color:rgba(247,244,239,0.5); font-size:13px; font-weight:300; }
 
-/* ââ BOOK SWITCHER ââ */
+/* ── BOOK SWITCHER ── */
 .book-switch {
   background: var(--charcoal);
   border-top: 1px solid rgba(255,255,255,0.07);
@@ -70,7 +70,7 @@ header p { color:rgba(247,244,239,0.5); font-size:13px; font-weight:300; }
 .book-btn[data-book="intermediate"].active { color: var(--inter-light); border-bottom-color: var(--inter); }
 .book-btn[data-book="intermediate"].active .bk-num { background: var(--inter); color: white; }
 
-/* ââ SECTION NAV ââ */
+/* ── SECTION NAV ── */
 nav {
   background: var(--warm-white);
   border-bottom: 1px solid var(--stone-pale);
@@ -96,16 +96,16 @@ nav::-webkit-scrollbar { display: none; }
 body.book-essential .nav-btn.active { color: var(--sage-deep); border-bottom-color: var(--sage); }
 body.book-intermediate .nav-btn.active { color: var(--inter-deep); border-bottom-color: var(--inter); }
 
-/* ââ BOOK VIEWS ââ */
+/* ── BOOK VIEWS ── */
 .book-view { display: none; }
 .book-view.active { display: block; }
 
-/* ââ MAIN ââ */
+/* ── MAIN ── */
 main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .section { display: none; }
 .section.active { display: block; }
 
-/* ââ CARDS ââ */
+/* ── CARDS ── */
 .card { background: var(--warm-white); border: 1px solid var(--stone-pale); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.25rem; }
 .card-tag { display:inline-block; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; padding:4px 12px; border-radius:100px; margin-bottom:1rem; }
 .tag-sage { background:var(--sage-pale); color:var(--sage-deep); }
@@ -123,7 +123,7 @@ main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .card ul li::before { content:'\2014'; position:absolute; left:0; color:var(--sage-light); font-size:12px; }
 h3 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; color:var(--charcoal); margin:1.25rem 0 0.5rem; font-style:italic; }
 
-/* ââ PRINCIPLE GRIDS ââ */
+/* ── PRINCIPLE GRIDS ── */
 .principle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1rem; }
 .principle-item { background:var(--cream); border-radius:12px; padding:1.25rem; }
 body.book-essential .principle-item { border-left:3px solid var(--sage); }
@@ -134,7 +134,7 @@ body.book-intermediate .principle-num { color:var(--inter); }
 .principle-item h4 { font-family:'DM Serif Display',serif; font-size:1.05rem; font-weight:400; margin-bottom:0.5rem; color:var(--charcoal); }
 .principle-item p { font-size:13px; color:var(--stone); line-height:1.65; }
 
-/* ââ ESSENCE GRIDS ââ */
+/* ── ESSENCE GRIDS ── */
 .essence-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:1rem; }
 .essence-item { background:var(--cream); border-radius:10px; padding:1rem; text-align:center; }
 .essence-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem; font-size:16px; }
@@ -143,7 +143,7 @@ body.book-intermediate .essence-icon { background:var(--inter-pale); }
 .essence-item strong { display:block; font-size:12px; font-weight:500; color:var(--charcoal); margin-bottom:4px; }
 .essence-item span { font-size:11px; color:var(--stone); line-height:1.5; display:block; }
 
-/* ââ ANATOMY ââ */
+/* ── ANATOMY ── */
 .anatomy-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:0.75rem; }
 .anatomy-item { background:var(--cream); border-radius:10px; padding:1rem; }
 .anatomy-item strong { display:block; font-size:12px; font-weight:500; margin-bottom:4px; }
@@ -151,7 +151,7 @@ body.book-essential .anatomy-item strong { color:var(--sage-deep); }
 body.book-intermediate .anatomy-item strong { color:var(--inter-deep); }
 .anatomy-item span { font-size:12px; color:var(--stone); line-height:1.55; }
 
-/* ââ EXERCISE GRID ââ */
+/* ── EXERCISE GRID ── */
 .ex-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px; margin-top:0.75rem; }
 .ex-item { background:var(--cream); border-radius:10px; padding:0.85rem 1rem; border:1px solid transparent; transition:border-color 0.2s; }
 body.book-essential .ex-item:hover { border-color:var(--sage-light); }
@@ -161,13 +161,13 @@ body.book-intermediate .ex-item:hover { border-color:var(--inter-light); }
 body.book-intermediate .ex-new { background:var(--inter-pale); color:var(--inter-deep); }
 .ex-desc { font-size:11px; color:var(--stone); line-height:1.45; }
 
-/* ââ FOCUS GRID ââ */
+/* ── FOCUS GRID ── */
 .focus-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:8px; margin-top:0.75rem; }
 .focus-item { border-radius:10px; padding:0.85rem 1rem; font-size:13px; line-height:1.55; }
 body.book-essential .focus-item { background:var(--sage-pale); color:var(--sage-deep); }
 body.book-intermediate .focus-item { background:var(--inter-pale); color:var(--inter-deep); }
 
-/* ââ COMPARISON TABLE ââ */
+/* ── COMPARISON TABLE ── */
 .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
 .compare-col { background:var(--cream); border-radius:12px; padding:1.25rem; }
 .compare-col h4 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; margin-bottom:0.75rem; padding-bottom:0.5rem; border-bottom:2px solid; }
@@ -180,14 +180,14 @@ body.book-intermediate .focus-item { background:var(--inter-pale); color:var(--i
 .compare-col.int li::before { content:'&middot;'; position:absolute; left:0; color:var(--inter); }
 @media(max-width:580px){ .compare-grid { grid-template-columns:1fr; } }
 
-/* ââ SEARCH ââ */
+/* ── SEARCH ── */
 .search-wrap { position:relative; margin-bottom:1.25rem; }
 .search-wrap input { width:100%; padding:10px 16px 10px 40px; border:1px solid var(--stone-pale); border-radius:100px; font-family:'DM Sans',sans-serif; font-size:14px; background:var(--warm-white); color:var(--charcoal); outline:none; transition:border-color 0.2s; }
 body.book-essential .search-wrap input:focus { border-color:var(--sage-light); }
 body.book-intermediate .search-wrap input:focus { border-color:var(--inter-light); }
 .search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--stone-light); font-size:16px; pointer-events:none; }
 
-/* ââ FLASHCARDS ââ */
+/* ── FLASHCARDS ── */
 .fc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:0.75rem; }
 .fc-header h2 { font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; }
 .fc-controls-top { display:flex; gap:8px; flex-wrap:wrap; }
@@ -237,7 +237,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 .score-review .score-num { color:var(--accent); }
 .score-total .score-num { color:var(--charcoal); }
 
-/* ââ CALLOUT ââ */
+/* ── CALLOUT ── */
 .callout { background:var(--inter-pale); border-left:3px solid var(--inter); border-radius:0 10px 10px 0; padding:1rem 1.25rem; margin:1rem 0; font-size:13px; color:var(--inter-deep); line-height:1.6; }
 .callout strong { font-weight:500; }
 
@@ -278,9 +278,9 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <button class="nav-btn" onclick="showSection('flashcards',this)">Flashcards</button>
 </nav>
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââ
+<!-- ════════════════════════════════════════════════════
      BOOK 1 &mdash; ESSENTIAL REFORMER
-ââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+════════════════════════════════════════════════════ -->
 <div id="book-essential" class="book-view active">
 <main>
 
@@ -311,7 +311,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <h3>Levels in the STOTT PILATES system</h3>
     <ul>
       <li>Preparatory</li>
-      <li><strong>Essential</strong> â you are here</li>
+      <li><strong>Essential</strong> ← you are here</li>
       <li>Intermediate</li>
       <li>Advanced</li>
     </ul>
@@ -407,13 +407,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <h2>The Seven Exercise Essences</h2>
     <p>Each STOTT PILATES exercise has a specific goal. These essential elements guide what to emphasize and how to modify while still working toward that goal.</p>
     <div class="essence-grid">
-      <div class="essence-item"><div class="essence-icon">ð¯</div><strong>Target Muscles</strong><span>Muscles emphasized for strengthening &mdash; as stabilizers or mobilizers. Not all muscles working, just those on which emphasis is placed.</span></div>
-      <div class="essence-item"><div class="essence-icon">â</div><strong>Stability</strong><span>Keeping one part of the body still while another moves. Requires muscular control and constancy, especially spine stabilization during all movement planes.</span></div>
-      <div class="essence-item"><div class="essence-icon">ã°ï¸</div><strong>Mobility</strong><span>Emphasizes movement at a joint or series of joints &mdash; such as the spine, hip, or shoulder girdle.</span></div>
-      <div class="essence-item"><div class="essence-icon">ð¢</div><strong>Sequencing</strong><span>The order in which movements happen &mdash; which joint moves first, which moves second, and where movement initiates from (especially important for spinal articulation).</span></div>
-      <div class="essence-item"><div class="essence-icon">â±ï¸</div><strong>Endurance</strong><span>Recruiting the same muscle group over a sustained period of time, building muscular endurance.</span></div>
-      <div class="essence-item"><div class="essence-icon">âï¸</div><strong>Balance</strong><span>Challenging balance by narrowing the base of support, requiring greater neuromuscular control.</span></div>
-      <div class="essence-item"><div class="essence-icon">ð</div><strong>Coordination</strong><span>Challenging coordination with more simultaneous movements or a more complex sequence of movements.</span></div>
+      <div class="essence-item"><div class="essence-icon">🎯</div><strong>Target Muscles</strong><span>Muscles emphasized for strengthening &mdash; as stabilizers or mobilizers. Not all muscles working, just those on which emphasis is placed.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚓</div><strong>Stability</strong><span>Keeping one part of the body still while another moves. Requires muscular control and constancy, especially spine stabilization during all movement planes.</span></div>
+      <div class="essence-item"><div class="essence-icon">〰️</div><strong>Mobility</strong><span>Emphasizes movement at a joint or series of joints &mdash; such as the spine, hip, or shoulder girdle.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔢</div><strong>Sequencing</strong><span>The order in which movements happen &mdash; which joint moves first, which moves second, and where movement initiates from (especially important for spinal articulation).</span></div>
+      <div class="essence-item"><div class="essence-icon">⏱️</div><strong>Endurance</strong><span>Recruiting the same muscle group over a sustained period of time, building muscular endurance.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚖️</div><strong>Balance</strong><span>Challenging balance by narrowing the base of support, requiring greater neuromuscular control.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔀</div><strong>Coordination</strong><span>Challenging coordination with more simultaneous movements or a more complex sequence of movements.</span></div>
     </div>
   </div>
   <div class="card">
@@ -436,7 +436,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <div class="card">
     <div class="card-tag tag-sage">Exercises</div>
     <h2>Essential Reformer Repertoire (29 exercises)</h2>
-    <div class="search-wrap"><span class="search-icon">â</span><input type="text" id="ess-search" placeholder="Search exercises..." oninput="filterEx('ess')" /></div>
+    <div class="search-wrap"><span class="search-icon">⌕</span><input type="text" id="ess-search" placeholder="Search exercises..." oninput="filterEx('ess')" /></div>
     <div class="ex-grid" id="ess-ex-grid">
       <div class="ex-item"><span class="ex-name">Footwork</span><span class="ex-desc">Parallel, V, heels, hip-width, wide; foundational leg press</span></div>
       <div class="ex-item"><span class="ex-name">Second Position</span><span class="ex-desc">Wide stance footwork; adductor and hip stability</span></div>
@@ -528,13 +528,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <div class="fc-header">
     <h2>Flashcards &mdash; Essential</h2>
     <div class="fc-controls-top">
-      <button class="btn" onclick="shuffleCards('ess')">âº Shuffle</button>
+      <button class="btn" onclick="shuffleCards('ess')">↺ Shuffle</button>
       <button class="btn" onclick="resetCards('ess')">Reset</button>
-      <button class="btn btn-primary" onclick="filterReview('ess')">Review marked â</button>
+      <button class="btn btn-primary" onclick="filterReview('ess')">Review marked ↗</button>
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">â 0 knew it &middot; âº 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">✓ 0 knew it &middot; ↺ 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="ess-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('ess')">
@@ -549,8 +549,8 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <button class="fc-nav-btn" onclick="nextCard('ess')"></button>
   </div>
   <div class="fc-status-row">
-    <button class="fc-status-btn status-knew" onclick="markCard('ess','knew')">â Knew it</button>
-    <button class="fc-status-btn status-review" onclick="markCard('ess','review')">âº Needs review</button>
+    <button class="fc-status-btn status-knew" onclick="markCard('ess','knew')">✓ Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('ess','review')">↺ Needs review</button>
   </div>
   <div class="fc-score">
     <div class="score-item score-total"><span class="score-num" id="ess-s-total">24</span><span class="score-label">Total cards</span></div>
@@ -563,9 +563,9 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 </div><!-- end book-essential -->
 
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââ
+<!-- ════════════════════════════════════════════════════
      BOOK 2 &mdash; INTERMEDIATE REFORMER
-ââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+════════════════════════════════════════════════════ -->
 <div id="book-intermediate" class="book-view">
 <main>
 
@@ -898,13 +898,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <h2>Seven Exercise Essences &mdash; Applied at Intermediate</h2>
     <p>The same seven essences apply, but Intermediate exercises frequently emphasize multiple essences simultaneously and demand higher-level execution of each.</p>
     <div class="essence-grid">
-      <div class="essence-item"><div class="essence-icon">ð¯</div><strong>Target Muscles</strong><span>More complex target muscle patterns &mdash; e.g. Coordination targets TVA, obliques, hip flexors, and extensors all simultaneously.</span></div>
-      <div class="essence-item"><div class="essence-icon">â</div><strong>Stability</strong><span>Torso stability challenged in standing, prone, and kneeling. Pelvis must stay square as limbs move in larger ranges (Long Spine, Frog, Star Prep).</span></div>
-      <div class="essence-item"><div class="essence-icon">ã°ï¸</div><strong>Mobility</strong><span>Greater joint mobility required &mdash; full hip circles (Frog), full spinal articulation into inversion (Long Spine), thoracic extension (Down Stretch, Chest Expansion).</span></div>
-      <div class="essence-item"><div class="essence-icon">ð¢</div><strong>Sequencing</strong><span>More complex movement sequences &mdash; e.g. Coordination sequences leg extension and opening, then closing, then return, while maintaining arm pull-in.</span></div>
-      <div class="essence-item"><div class="essence-icon">â±ï¸</div><strong>Endurance</strong><span>Sustained stability under greater load and range. Running, Beats, and Hundred (at Intermediate pace) challenge muscular endurance significantly.</span></div>
-      <div class="essence-item"><div class="essence-icon">âï¸</div><strong>Balance</strong><span>Significantly increased &mdash; Front/Back/Side Splits, Star Prep, and all standing-on-carriage exercises challenge balance with a moving base of support.</span></div>
-      <div class="essence-item"><div class="essence-icon">ð</div><strong>Coordination</strong><span>The Coordination exercise itself epitomizes this essence. Also present in kneeling exercises requiring simultaneous arm pull and trunk stability.</span></div>
+      <div class="essence-item"><div class="essence-icon">🎯</div><strong>Target Muscles</strong><span>More complex target muscle patterns &mdash; e.g. Coordination targets TVA, obliques, hip flexors, and extensors all simultaneously.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚓</div><strong>Stability</strong><span>Torso stability challenged in standing, prone, and kneeling. Pelvis must stay square as limbs move in larger ranges (Long Spine, Frog, Star Prep).</span></div>
+      <div class="essence-item"><div class="essence-icon">〰️</div><strong>Mobility</strong><span>Greater joint mobility required &mdash; full hip circles (Frog), full spinal articulation into inversion (Long Spine), thoracic extension (Down Stretch, Chest Expansion).</span></div>
+      <div class="essence-item"><div class="essence-icon">🔢</div><strong>Sequencing</strong><span>More complex movement sequences &mdash; e.g. Coordination sequences leg extension and opening, then closing, then return, while maintaining arm pull-in.</span></div>
+      <div class="essence-item"><div class="essence-icon">⏱️</div><strong>Endurance</strong><span>Sustained stability under greater load and range. Running, Beats, and Hundred (at Intermediate pace) challenge muscular endurance significantly.</span></div>
+      <div class="essence-item"><div class="essence-icon">⚖️</div><strong>Balance</strong><span>Significantly increased &mdash; Front/Back/Side Splits, Star Prep, and all standing-on-carriage exercises challenge balance with a moving base of support.</span></div>
+      <div class="essence-item"><div class="essence-icon">🔀</div><strong>Coordination</strong><span>The Coordination exercise itself epitomizes this essence. Also present in kneeling exercises requiring simultaneous arm pull and trunk stability.</span></div>
     </div>
   </div>
   <div class="card">
@@ -933,7 +933,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <div class="card-tag tag-inter">Exercises</div>
     <h2>Intermediate Reformer Repertoire (45 exercises)</h2>
     <p><span style="font-size:11px; background:var(--inter-pale); color:var(--inter-deep); padding:2px 8px; border-radius:4px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;">NEW</span> = exercises introduced at Intermediate level (not in Essential)</p>
-    <div class="search-wrap"><span class="search-icon">â</span><input type="text" id="int-search" placeholder="Search exercises..." oninput="filterEx('int')" /></div>
+    <div class="search-wrap"><span class="search-icon">⌕</span><input type="text" id="int-search" placeholder="Search exercises..." oninput="filterEx('int')" /></div>
     <div class="ex-grid" id="int-ex-grid">
       <div class="ex-item"><span class="ex-name">Footwork</span><span class="ex-desc">Same as Essential; same focus points apply</span></div>
       <div class="ex-item"><span class="ex-name">Second Position</span><span class="ex-desc">Wide stance footwork; adductor and hip stability</span></div>
@@ -1032,13 +1032,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <div class="fc-header">
     <h2>Flashcards &mdash; Intermediate</h2>
     <div class="fc-controls-top">
-      <button class="btn" onclick="shuffleCards('int')">âº Shuffle</button>
+      <button class="btn" onclick="shuffleCards('int')">↺ Shuffle</button>
       <button class="btn" onclick="resetCards('int')">Reset</button>
-      <button class="btn btn-primary" onclick="filterReview('int')">Review marked â</button>
+      <button class="btn btn-primary" onclick="filterReview('int')">Review marked ↗</button>
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">â 0 knew it &middot; âº 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">✓ 0 knew it &middot; ↺ 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="int-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('int')">
@@ -1053,8 +1053,8 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <button class="fc-nav-btn" onclick="nextCard('int')"></button>
   </div>
   <div class="fc-status-row">
-    <button class="fc-status-btn status-knew" onclick="markCard('int','knew')">â Knew it</button>
-    <button class="fc-status-btn status-review" onclick="markCard('int','review')">âº Needs review</button>
+    <button class="fc-status-btn status-knew" onclick="markCard('int','knew')">✓ Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('int','review')">↺ Needs review</button>
   </div>
   <div class="fc-score">
     <div class="score-item score-total"><span class="score-num" id="int-s-total">24</span><span class="score-label">Total cards</span></div>
@@ -1141,11 +1141,11 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   </div>
 
 <script>
-// ââ Current book / section state âââââââââââââââââââââââââââââââ
+// ── Current book / section state ───────────────────────────────
 let currentBook = 'ess';
 let currentSection = 'overview';
 
-// ââ Book switching âââââââââââââââââââââââââââââââââââââââââââââ
+// ── Book switching ─────────────────────────────────────────────
 function switchBook(book,btn){
   currentBook=book;
   document.querySelectorAll('.book').forEach(b=>b.style.display='none');
@@ -1158,7 +1158,7 @@ function switchBook(book,btn){
   else{nav.style.display='';render(book==='essential'?'ess':'int');}
 }
 
-// ââ Section nav ââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Section nav ────────────────────────────────────────────────
 function showSection(id, btn) {
   currentSection = id;
   const prefix = currentBook;
@@ -1170,7 +1170,7 @@ function showSection(id, btn) {
   if(target) target.classList.add('active');
 }
 
-// ââ Exercise search ââââââââââââââââââââââââââââââââââââââââââââ
+// ── Exercise search ────────────────────────────────────────────
 function filterEx(prefix) {
   const q = document.getElementById(prefix + '-search').value.toLowerCase();
   document.querySelectorAll('#' + prefix + '-ex-grid .ex-item').forEach(item => {
@@ -1178,12 +1178,12 @@ function filterEx(prefix) {
   });
 }
 
-// ââ Flashcard data âââââââââââââââââââââââââââââââââââââââââââââ
+// ── Flashcard data ─────────────────────────────────────────────
 const essCards = [
   {q:"What are the Five Basic Principles of STOTT PILATES?", a:"1. Breathing\n2. Pelvic Placement\n3. Rib Cage Placement\n4. Scapular Movement & Stabilization\n5. Head & Cervical Placement"},
   {q:"What is the difference between Neutral and Imprint pelvic placement?", a:"Neutral: ASIS and pubis symphysis in the same horizontal plane; normal lumbar curve present &mdash; most stable, shock-absorbing position.\n\nImprint: slight posterior pelvic tilt with light lumbar flexion; oblique abdominals contract to approximate pelvis toward rib cage."},
   {q:"When is Imprint pelvic placement used?", a:"When neutral alignment cannot be stabilized &mdash; e.g. when the load exceeds abdominal strength, or when postural tendencies (e.g. lordosis) are present. Also used in open kinetic chain exercises until sufficient strength develops."},
-  {q:"What is the STOTT PILATES breath pattern, and what does each phase facilitate?", a:"Inhale through the nose (rib cage expands three-dimensionally) â encourages spinal extension.\nExhale through pursed lips (rib cage closes in/down) â encourages spinal flexion.\nTVA, pelvic floor, and multifidus remain engaged throughout both phases."},
+  {q:"What is the STOTT PILATES breath pattern, and what does each phase facilitate?", a:"Inhale through the nose (rib cage expands three-dimensionally) → encourages spinal extension.\nExhale through pursed lips (rib cage closes in/down) → encourages spinal flexion.\nTVA, pelvic floor, and multifidus remain engaged throughout both phases."},
   {q:"What is the role of the Transversus Abdominis (TVA)?", a:"Deepest abdominal layer; wraps horizontally around the torso between lower ribs and pelvis. Attaches into thoracolumbar fascia at the back. Acts as a muscular girdle for the lumbo-pelvic region, providing local support throughout all exercises."},
   {q:"What is Cranio-Vertebral Flexion and when is it used?", a:"Lengthening the back of the neck away from the shoulders and flexing the cranium on the first two cervical vertebrae. Incorporated whenever the thoracic spine moves into flexion. Ensures head, cervical, and thoracic spine remain aligned."},
   {q:"What are the Seven Exercise Essences?", a:"Target Muscles, Stability, Mobility, Sequencing, Endurance, Balance, Coordination.\n\nEach exercise has a primary essence &mdash; knowing it ensures modifications still serve the exercise's core goal."},
@@ -1233,7 +1233,7 @@ const intCards = [
   {q:"Why is the Frog exercise performed in both directions?", a:"The Frog circles the legs through a full arc &mdash; out along the diagonal, feet to ceiling, knees out to sides (diamond), then close. Reversing the direction (starting with the open diamond phase) ensures balanced development of hip mobility and challenges the adductors and lateral rotators in different loading positions. Both directions share the same pelvic stability requirement."}
 ];
 
-// ââ Flashcard state (one per book) ââââââââââââââââââââââââââââ
+// ── Flashcard state (one per book) ────────────────────────────
 const state = {
   ess: { all: essCards, deck: essCards, order: essCards.map((_,i)=>i), idx:0, status:{} },
   int: { all: intCards, deck: intCards, order: intCards.map((_,i)=>i), idx:0, status:{} }
@@ -1260,7 +1260,7 @@ function updateScore(p) {
   document.getElementById(p+'-s-total').textContent = s.all.length;
   document.getElementById(p+'-s-knew').textContent = knew;
   document.getElementById(p+'-s-review').textContent = rev;
-  document.getElementById(p+'-fc-score-text').textContent = 'â '+knew+' knew it &middot; âº '+rev+' to review';
+  document.getElementById(p+'-fc-score-text').textContent = '✓ '+knew+' knew it &middot; ↺ '+rev+' to review';
 }
 
 function flipCard(p) { document.getElementById(p+'-fc-flip').classList.toggle('flipped'); }
@@ -1295,14 +1295,14 @@ function resetCards(p) {
 function filterReview(p) {
   const s = state[p];
   const ri = Object.entries(s.status).filter(([,v])=>v==='review').map(([k])=>parseInt(k));
-  if(ri.length===0){ alert('No cards marked for review yet! Use "âº Needs review" as you go.'); return; }
+  if(ri.length===0){ alert('No cards marked for review yet! Use "↺ Needs review" as you go.'); return; }
   s.deck = s.all;
   s.order = ri;
   s.idx = 0;
   render(p);
 }
 
-// ââ Keyboard shortcuts ââââââââââââââââââââââââââââââââââââââââ
+// ── Keyboard shortcuts ────────────────────────────────────────
 document.addEventListener('keydown', e => {
   const p = currentBook;
   const fcSection = document.getElementById(p+'-flashcards');
@@ -1314,7 +1314,7 @@ document.addEventListener('keydown', e => {
   if(e.key==='r'||e.key==='R') markCard(p,'review');
 });
 
-// ââ Init ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── Init ──────────────────────────────────────────────────────
 render('ess');
 render('int');
 
