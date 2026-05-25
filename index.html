@@ -176,8 +176,8 @@ body.book-intermediate .focus-item { background:var(--inter-pale); color:var(--i
 .compare-col ul { list-style:none; padding:0; }
 .compare-col ul li { font-size:12px; color:var(--stone); padding:0.25rem 0 0.25rem 1rem; position:relative; border-bottom:1px solid var(--stone-pale); }
 .compare-col ul li:last-child { border-bottom:none; }
-.compare-col.ess li::before { content:' · '; position:absolute; left:0; color:var(--sage); }
-.compare-col.int li::before { content:' · '; position:absolute; left:0; color:var(--inter); }
+.compare-col.ess li::before { content:' | '; position:absolute; left:0; color:var(--sage); }
+.compare-col.int li::before { content:' | '; position:absolute; left:0; color:var(--inter); }
 @media(max-width:580px){ .compare-grid { grid-template-columns:1fr; } }
 
 /* ── SEARCH ── */
@@ -528,13 +528,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <div class="fc-header">
     <h2>Flashcards &mdash; Essential</h2>
     <div class="fc-controls-top">
-      <button class="btn" onclick="shuffleCards('ess')">↺ Shuffle</button>
+      <button class="btn" onclick="shuffleCards('ess')">Shuffle</button>
       <button class="btn" onclick="resetCards('ess')">Reset</button>
       <button class="btn btn-primary" onclick="filterReview('ess')">Review marked ↗</button>
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="ess-fc-progress-text">Card 1 of 24</span><span id="ess-fc-score-text">0 knew it | 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="ess-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('ess')">
@@ -549,8 +549,8 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <button class="fc-nav-btn" onclick="nextCard('ess')"></button>
   </div>
   <div class="fc-status-row">
-    <button class="fc-status-btn status-knew" onclick="markCard('ess','knew')">✓ Knew it</button>
-    <button class="fc-status-btn status-review" onclick="markCard('ess','review')">↺ Needs review</button>
+    <button class="fc-status-btn status-knew" onclick="markCard('ess','knew')">Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('ess','review')">Needs review</button>
   </div>
   <div class="fc-score">
     <div class="score-item score-total"><span class="score-num" id="ess-s-total">24</span><span class="score-label">Total cards</span></div>
@@ -800,13 +800,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   <div class="fc-header">
     <h2>Flashcards &mdash; Intermediate</h2>
     <div class="fc-controls-top">
-      <button class="btn" onclick="shuffleCards('int')">↺ Shuffle</button>
+      <button class="btn" onclick="shuffleCards('int')">Shuffle</button>
       <button class="btn" onclick="resetCards('int')">Reset</button>
       <button class="btn btn-primary" onclick="filterReview('int')">Review marked ↗</button>
     </div>
   </div>
   <div class="fc-progress-wrap">
-    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">✓ 0 knew it · ↺ 0 to review</span></div>
+    <div class="fc-progress-labels"><span id="int-fc-progress-text">Card 1 of 24</span><span id="int-fc-score-text">0 knew it | 0 to review</span></div>
     <div class="fc-progress-bar"><div class="fc-progress-fill" id="int-fc-progress-fill" style="width:4%"></div></div>
   </div>
   <div class="fc-scene" onclick="flipCard('int')">
@@ -821,8 +821,8 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
     <button class="fc-nav-btn" onclick="nextCard('int')"></button>
   </div>
   <div class="fc-status-row">
-    <button class="fc-status-btn status-knew" onclick="markCard('int','knew')">✓ Knew it</button>
-    <button class="fc-status-btn status-review" onclick="markCard('int','review')">↺ Needs review</button>
+    <button class="fc-status-btn status-knew" onclick="markCard('int','knew')">Knew it</button>
+    <button class="fc-status-btn status-review" onclick="markCard('int','review')">Needs review</button>
   </div>
   <div class="fc-score">
     <div class="score-item score-total"><span class="score-num" id="int-s-total">24</span><span class="score-label">Total cards</span></div>
@@ -1131,7 +1131,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
         <button onclick="musNext()" class="btn-nav">&rsaquo;</button>
       </div>
       <div class="fc-actions">
-        <button onclick="musKnew()" class="btn-knew">✓ Knew it</button>
+        <button onclick="musKnew()" class="btn-knew">Knew it</button>
         <button onclick="musReview()" class="btn-review">&#8635; Needs review</button>
       </div>
       <div class="fc-stats">
@@ -1267,7 +1267,7 @@ function updateScore(p) {
   document.getElementById(p+'-s-total').textContent = s.all.length;
   document.getElementById(p+'-s-knew').textContent = knew;
   document.getElementById(p+'-s-review').textContent = rev;
-  document.getElementById(p+'-fc-score-text').textContent = '✓ '+knew+' knew it · ↺ '+rev+' to review';
+  document.getElementById(p+'-fc-score-text').textContent = ' '+knew+' knew it |  '+rev+' to review';
 }
 
 function flipCard(p) { document.getElementById(p+'-fc-flip').classList.toggle('flipped'); }
@@ -1302,7 +1302,7 @@ function resetCards(p) {
 function filterReview(p) {
   const s = state[p];
   const ri = Object.entries(s.status).filter(([,v])=>v==='review').map(([k])=>parseInt(k));
-  if(ri.length===0){ alert('No cards marked for review yet! Use "↺ Needs review" as you go.'); return; }
+  if(ri.length===0){ alert('No cards marked for review yet! Use "Needs review" as you go.'); return; }
   s.deck = s.all;
   s.order = ri;
   s.idx = 0;
