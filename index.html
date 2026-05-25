@@ -97,7 +97,7 @@ body.book-essential .nav-btn.active { color: var(--sage-deep); border-bottom-col
 body.book-intermediate .nav-btn.active { color: var(--inter-deep); border-bottom-color: var(--inter); }
 
 /* ── BOOK VIEWS ── */
-.book-view { display: none; }
+.book-view { display: none; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .book-view.active { display: block; }
 
 /* ── MAIN ── */
@@ -252,7 +252,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   .book-btn { padding:0.75rem 1rem; }
 }
 </style>
-<!-- updated: 1779691756697 -->
+<!-- updated: 1779692280669 -->
 </head>
 <body class="book-essential">
 
@@ -1445,10 +1445,7 @@ let currentSection = 'overview';
 // ── Book switching ─────────────────────────────────────────────
 function switchBook(book,btn){
   currentBook=book;
-  document.querySelectorAll('.book-view,.book').forEach(function(b){
-    b.classList.remove('active');
-    b.style.display='';
-  });
+  document.querySelectorAll('.book-view').forEach(function(b){b.classList.remove('active');});
   document.querySelectorAll('.book-btn').forEach(function(b){b.classList.remove('active');});
   var bookEl=document.getElementById('book-'+book);
   if(bookEl) bookEl.classList.add('active');
