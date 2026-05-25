@@ -1146,17 +1146,16 @@ let currentBook = 'ess';
 let currentSection = 'overview';
 
 // ââ Book switching âââââââââââââââââââââââââââââââââââââââââââââ
-function switchBook(book, btn) {
-  currentBook = book; document.querySelectorAll('.book').forEach(b => b.style.display='none'); const bel = document.getElementById('book-'+book); if(bel) bel.style.display='block';
-  document.querySelectorAll('.book-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.book-view').forEach(v => v.classList.remove('active'));
-  document.getElementById('book-' + book).classList.add('active');
-  document.body.className = 'book-' + book;
-  // Reset to overview
-  showSection('overview', document.querySelector('.nav-btn'));
-  // Reset all nav buttons
-  document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+function switchBook(book,btn){
+  currentBook=book;
+  document.querySelectorAll('.book').forEach(b=>b.style.display='none');
+  document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
+  const bookEl=document.getElementById('book-'+book);
+  if(bookEl)bookEl.style.display='block';
+  if(btn)btn.classList.add('active');
+  const nav=document.getElementById('main-nav');
+  if(book==='muscles'){nav.style.display='none';}
+  else{nav.style.display='';render(book==='essential'?'ess':'int');}
 }
 
 // ââ Section nav ââââââââââââââââââââââââââââââââââââââââââââââââ
