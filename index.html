@@ -631,7 +631,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 </div>
 
 <!-- ===== BOOK 3: THE MUSCLES ===== -->
-<div id="book-muscles" class="book" style="display:none">
+<div id="book-muscles" class="book-view" style="display:none">
 
   <!-- Sub-nav -->
   <div class="section-nav">
@@ -1148,14 +1148,19 @@ let currentSection = 'overview';
 // ── Book switching ─────────────────────────────────────────────
 function switchBook(book,btn){
   currentBook=book;
-  document.querySelectorAll('.book').forEach(b=>b.style.display='none');
+  // Hide all books (both class names used)
+  document.querySelectorAll('.book-view, .book').forEach(b=>b.style.display='none');
   document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
   const bookEl=document.getElementById('book-'+book);
-  if(bookEl)bookEl.style.display='block';
-  if(btn)btn.classList.add('active');
+  if(bookEl) bookEl.style.display='block';
+  if(btn) btn.classList.add('active');
   const nav=document.getElementById('main-nav');
-  if(book==='muscles'){nav.style.display='none';}
-  else{nav.style.display='';render(book==='essential'?'ess':'int');}
+  if(book==='muscles'){
+    if(nav) nav.style.display='none';
+  } else {
+    if(nav) nav.style.display='';
+    render(book==='essential'?'ess':'int');
+  }
 }
 
 // ── Section nav ────────────────────────────────────────────────
