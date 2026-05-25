@@ -252,7 +252,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   .book-btn { padding:0.75rem 1rem; }
 }
 </style>
-<!-- updated: 1779690865377 -->
+<!-- updated: 1779691072640 -->
 </head>
 <body class="book-essential">
 
@@ -1157,7 +1157,6 @@ function switchBook(book,btn){
   var nav=document.getElementById('main-nav');
   if(book==='muscles'){
     if(nav) nav.style.display='none';
-    // Show muscles overview by default
     showMuscSection('mus-overview', document.querySelector('#book-muscles .nav-btn'));
   } else {
     if(nav) nav.style.display='';
@@ -1438,9 +1437,11 @@ function muscKnew() { muscKnewCount++; muscNext(); }
 function muscReset() { muscIdx=0; muscKnewCount=0; renderMuscCard(); }
 
 function showMuscSection(id,btn){
-  document.querySelectorAll('#book-muscles .section').forEach(function(s){s.style.display='none';});
+  document.querySelectorAll('#book-muscles .section').forEach(function(s){
+    s.classList.remove('active');
+  });
   var el=document.getElementById(id);
-  if(el) el.style.display='block';
+  if(el) el.classList.add('active');
   document.querySelectorAll('#book-muscles .nav-btn').forEach(function(b){b.classList.remove('active');});
   if(btn) btn.classList.add('active');
   if(id==='mus-flashcards') renderMuscCard();
