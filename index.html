@@ -1144,7 +1144,7 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
 
 <script>
 // ── Current book / section state ───────────────────────────────
-let currentBook = 'ess';
+var currentBook = 'ess';
 let currentSection = 'overview';
 
 // ── Book switching ─────────────────────────────────────────────
@@ -1459,7 +1459,7 @@ function showMuscSection(id, btn) {
 <script>
 // Override switchBook to fix book switching
 window.switchBook = function(book, btn) {
-  window.currentBook = book;
+  window.currentBook = book; try { currentBook = book; } catch(e) {}
   document.querySelectorAll('.book-view').forEach(function(b) { b.classList.remove('active'); });
   document.querySelectorAll('.book-btn').forEach(function(b) { b.classList.remove('active'); });
   var bookEl = document.getElementById('book-' + book);
