@@ -1453,5 +1453,33 @@ function showMuscSection(id, btn) {
 }
 
 </script>
+
+<script>
+// Override switchBook to fix book switching
+window.switchBook = function(book, btn) {
+  window.currentBook = book;
+  document.querySelectorAll('.book-view').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.book-btn').forEach(function(b) { b.classList.remove('active'); });
+  var bookEl = document.getElementById('book-' + book);
+  if (bookEl) bookEl.classList.add('active');
+  if (btn) btn.classList.add('active');
+  var nav = document.getElementById('main-nav');
+  if (book === 'muscles') {
+    if (nav) nav.style.display = 'none';
+    if (typeof showMuscSection === 'function') showMuscSection('mus-overview', document.querySelector('#book-muscles .nav-btn'));
+  } else {
+    if (nav) nav.style.display = '';
+    if (typeof render === 'function') render(book === 'essential' ? 'ess' : 'int');
+  }
+};
+// Fix initial state on load
+(function() {
+  document.querySelectorAll('.book-view').forEach(function(b) { b.classList.remove('active'); });
+  var ess = document.getElementById('book-essential');
+  if (ess) ess.classList.add('active');
+  var nav = document.getElementById('main-nav');
+  if (nav) nav.style.display = '';
+})();
+</script>
 </body>
 </html>
