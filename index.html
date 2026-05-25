@@ -7,25 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --charcoal: #3d2b35;
-  --cream: #fff5f7;
-  --sand: #fce4ec;
-  --accent: #e91e8c;
-  --accent2: #f06292;
-  --muted: #ad6b85;
-  --border: #f8bbd0;
-  --card-bg: #fff9fb;
-  --tag-ess: #f48fb1;
-  --tag-int: #ce93d8;
-  --tag-mus: #f06292;
-  --principle-border: #f48fb1;
+  --charcoal: #182C2B;
+  --cream: #DFDADE;
+  --sand: #F1C1BD;
+  --accent: #CA6D68;
+  --accent2: #2F4B4C;
+  --muted: #4a6b6a;
+  --border: #F1C1BD;
+  --card-bg: #ffffff;
+  --tag-ess: #2F4B4C;
+  --tag-int: #CA6D68;
+  --tag-mus: #2F4B4C;
+  --principle-border: #F1C1BD;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; font-size: 15px; line-height: 1.7; }
+body { background: #DFDADE; font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; font-size: 15px; line-height: 1.7; }
 
 /* ── TOP HEADER ── */
 header {
-  background: var(--charcoal);
+  background: #182C2B;
   color: var(--cream);
   padding: 2rem 2rem 1.5rem;
   position: relative; overflow: hidden;
@@ -45,17 +45,7 @@ header p { color:rgba(247,244,239,0.5); font-size:13px; font-weight:300; }
   padding: 0 2rem;
   gap: 0;
 }
-.book-btn {
-  font-family:'DM Sans',sans-serif;
-  background: none; border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.85rem 1.5rem;
-  font-size: 13px; font-weight: 400;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-  display: flex; align-items: center; gap: 8px;
-}
+.book-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); padding: 0.4rem 1.1rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; display:flex; align-items:center; gap:0.4rem; }
 .book-btn .bk-num {
   width:20px; height:20px; border-radius:50%;
   font-size:10px; font-weight:500;
@@ -81,7 +71,7 @@ nav {
   scrollbar-width: none;
 }
 nav::-webkit-scrollbar { display: none; }
-.nav-btn {
+.nav-btn { color: #2F4B4C;
   background: none; border: none;
   border-bottom: 2px solid transparent;
   padding: 0.9rem 1.1rem;
@@ -92,7 +82,7 @@ nav::-webkit-scrollbar { display: none; }
   white-space: nowrap; transition: all 0.2s;
 }
 .nav-btn:hover { color: var(--charcoal); }
-.nav-btn.active { font-weight: 500; }
+.nav-btn.active { color: #182C2B; border-bottom-color: #CA6D68; font-weight: 500; }
 body.book-essential .nav-btn.active { color: var(--sage-deep); border-bottom-color: var(--sage); }
 body.book-intermediate .nav-btn.active { color: var(--inter-deep); border-bottom-color: var(--inter); }
 
@@ -107,7 +97,7 @@ main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
 /* ── CARDS ── */
 .card { background: var(--warm-white); border: 1px solid var(--stone-pale); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.25rem; }
-.card-tag { display:inline-block; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; padding:4px 12px; border-radius:100px; margin-bottom:1rem; }
+.card-tag { display:inline-block; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; padding:4px 14px; border-radius:100px; margin-bottom:1rem; background:#e8efef; color:#2F4B4C; border:1px solid #c5d8d8; }
 .tag-sage { background:var(--sage-pale); color:var(--sage-deep); }
 .tag-gold { background:var(--gold-pale); color:#7a5c2e; }
 .tag-accent { background:var(--accent-pale); color:#8a4e2a; }
@@ -125,7 +115,7 @@ h3 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; colo
 
 /* ── PRINCIPLE GRIDS ── */
 .principle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1rem; }
-.principle-item { background:var(--cream); border-radius:12px; padding:1.25rem; }
+.principle-item { background:#fff; border-radius:12px; padding:1.25rem 1.5rem; border-left:3px solid #2F4B4C; box-shadow:0 1px 4px rgba(0,0,0,0.06); margin-bottom:0.5rem; }
 body.book-essential .principle-item { border-left:3px solid var(--sage); }
 body.book-intermediate .principle-item { border-left:3px solid var(--inter); }
 .principle-num { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500; margin-bottom:0.35rem; }
@@ -251,12 +241,13 @@ body.book-intermediate .fc-front .fc-face-label { color:var(--inter); }
   .book-switch { padding:0 0.5rem; }
   .book-btn { padding:0.75rem 1rem; }
 }
+.search-wrap input { width:100%; padding:0.65rem 1rem 0.65rem 2.5rem; border:1.5px solid var(--border); border-radius:10px; font-size:0.95rem; background:#fff; color:var(--charcoal); outline:none; font-family:inherit; }
+.search-wrap input:focus { border-color:#2F4B4C; box-shadow:0 0 0 3px rgba(47,75,76,0.1); }
 </style>
 </head>
 <body class="book-essential">
 
 <header>
-  <div class="header-label">Ada's Reformer Studies</div>
   <h1>Ada's Reformer Studies <em>🌸</em></h1>
 <p>Essential &amp; Intermediate Reformer &mdash; notes, essences &amp; flashcards</p>
 </header>
@@ -1249,8 +1240,8 @@ const state = {
 function render(p) {
   const s = state[p];
   const card = s.deck[s.order[s.idx]];
-  document.getElementById(p+'-fc-q').textContent = card.q;
-  document.getElementById(p+'-fc-a').textContent = card.a;
+  document.getElementById(p+'-fc-q').innerHTML = card.q;
+  document.getElementById(p+'-fc-a').innerHTML = card.a;
   document.getElementById(p+'-fc-flip').classList.remove('flipped');
   const total = s.order.length;
   const curr = s.idx + 1;
